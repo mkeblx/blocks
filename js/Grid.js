@@ -1,0 +1,226 @@
+define(function(require){
+
+var GPoint = require('GPoint');
+
+var Grid = Class.extend({
+	init: function(rows, cols){
+		this.rows = rows;
+		this.cols = cols;
+		this.pieces = [];
+
+		this.matrix = []; //rows=>cols
+
+		this.DIRS = {
+			'LEFT': 	new GPoint(-1,0),
+			'UP': 		new GPoint(0,-1),
+			'RIGHT': 	new GPoint(1,0),
+			'DOWN': 	new GPoint(0,1)};
+
+		//0 set where numeric codes have meaning
+		for (var i = 0; i < cols*rows; i++) {
+			this.matrix.push(0);
+		}
+
+	},
+
+	//wether coords are on grid
+	onGrid: function(pt){
+		return !(pt.x >= this.cols || pt.x < 0
+			  || pt.y >= this.rows || pt.y < 0);
+	},
+
+	setStateAt: function(pt, state){
+		if (!this.onGrid(pt))
+			return false;
+
+		this.matrix[pt.y*this.cols+pt.x] = state;
+	},
+
+	//get state of grid at x,y
+	stateAt: function(pt){
+		if (!this.onGrid(pt))
+			return null;
+
+		var ref = this.matrix[pt.y*this.cols+pt.x];
+
+		return ref;
+		//TODO: check type of ref and do with
+	},
+
+	//return bool if empty at x,y
+	emptyAt: function(pt)
+	{
+		return this.stateAt(pt) === 0;
+	},
+
+	//return height at point
+	heightAt: function(pt)
+	{
+		var state = this.stateAt(pt);
+
+		if (state === 0)
+			return 0;
+		else if (state === 'PIECE_DOWN')
+			return 1;
+		else if (state === 'PIECE_UP') {
+			var pc = this.pieceAt(pt);
+			return pc.len;
+		} else
+			return null;
+	},
+
+	//return bool if empty in direction, by length
+	emptyFrom: function(point, direction, len)
+	{	
+		var pt = point.copy();
+
+		for (var i = 0; i < len; i++) {
+			pt.add(direction);
+
+			if (!this.emptyAt(pt)) {
+				console.log('emptyFrom: not empty at: ', pt.x, pt.y);
+				return false;
+			}
+		}
+		return true;
+	},
+
+	//
+	setStateFrom: function(point, direction, len, state)
+	{
+		var pt = point.copy();
+
+		for (var i = 0; i < len; i++) {
+			//console.log('set state at :',pt.x,pt.y,' to ', state);
+
+			this.setStateAt(pt, state);
+
+			pt.add(direction);
+		}
+		return true;	
+	},
+
+	//look through grid and find empty point
+	getEmptyPt: function()
+	{	
+		do {
+			var x = Math.floor(Math.random()*this.cols);
+			var y = Math.floor(Math.random()*this.rows);
+		} while (this.stateAt(x,y) !== 0);
+
+		return {x: x, y: y};
+	},
+
+	//return piece at x,y if possible
+	pieceAt: function(pt){
+		//TODO: use this.matrix somehow
+
+		var numPieces = this.pieces.length;
+		for (var i = 0; i < numPieces; i++) {
+			var p = this.pieces[i];
+
+			if (p.pt.x == pt.x && p.pt.y == pt.y)
+				return p;
+		}
+
+		return null;
+	},
+
+	addPiece: function(piece){
+		this.pieces.push(piece);
+
+		var pcPt = piece.pt;
+
+		this.matrix[pcPt.y*this.cols+pcPt.x] = "PIECE_UP";
+	},
+
+	draw: function() {
+		var gridSize = game.gridSize;
+		var tW = gridSize * this.cols;
+		var tH = gridSize * this.rows;
+
+		var size = this.rows/2*gridSize, step = gridSize;
+
+		var geometry = new THREE.Geometry();
+
+		for ( var i = - size; i <= size; i += step ) {
+			geometry.vertices.push( new THREE.Vector3( - size, 0, i ) );
+			geometry.vertices.push( new THREE.Vector3(   size, 0, i ) );
+
+			geometry.vertices.push( new THREE.Vector3( i, 0, - size ) );
+			geometry.vertices.push( new THREE.Vector3( i, 0,   size ) );
+		}
+
+		var material = new THREE.LineBasicMaterial({
+			color: 0x000000,
+			opacity: 0.2,
+			transparent: true });
+
+		var line = new THREE.Line(geometry, material);
+		line.type = THREE.LinePieces;
+		scene.add(line);
+		this.el = line;
+
+		var color = BG_COLOR;
+
+		var floorMaterial = new THREE.MeshLambertMaterial({
+			color: color,
+			transparent: true,
+			opacity: 0.6,
+			side: THREE.DoubleSide });
+		
+		//var floorGeometry = new THREE.PlaneGeometry(gridSize*(this.cols+100), gridSize*(this.cols+100), this.rows, this.cols);
+
+		var floorGeometry = new THREE.CircleGeometry( gridSize*(this.cols+100), 20, 0, Math.PI * 2 );
+
+		var floor = new THREE.Mesh(floorGeometry, floorMaterial);
+		floor.rotation.x = 90*Math.deg2rad;
+
+		floor.receiveShadow = true;
+
+		scene.add(floor);
+
+		this.drawPieces();
+	},
+
+	drawPieces: function() {
+		for (var p = 0; p < this.pieces.length; p++) {
+			var pc = this.pieces[p];
+			pc.draw(this.board, (p === this.pieces.length-1)?true:false);
+		}
+	},
+
+	remove: function() {
+		scene.remove(this.el);
+
+		for (var p = 0; p < this.pieces.length; p++) {
+			var pc = this.pieces[p];
+			pc.remove();
+		}
+	},
+
+	//list all pieces locations and sizes
+	serialize: function(){
+		var str = [];
+		for (var i = 0; i < this.pieces.length; i++) {
+			str.push(this.pieces[i].toString());
+		}
+		str = str.join('+');
+		return str;
+	},
+
+	//TODO: show matrix
+	toString: function(){
+		return "Grid: " + this.rows + "x" + this.cols;
+	}
+
+});
+
+Grid.DIRS = {'LEFT': 	new GPoint(-1,0),
+			 'UP': 		new GPoint(0,-1),
+			 'RIGHT': 	new GPoint(1,0),
+			 'DOWN': 	new GPoint(0,1)};
+
+return Grid;
+
+});

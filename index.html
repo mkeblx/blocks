@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>blocks</title>
+<link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700">
+<link rel="stylesheet" href="css/style.css" />
+<meta name="viewport" content="initial-scale=1.0, width=device-width">
+<script src="js/dist/libs.min.js"></script>
+<script>
+var require = {urlArgs: "bust="+(new Date()).getTime()};
+</script>
+<script data-main="js/main" src="js/require.js"></script>
+</head>
+<body>
+<div id="menu" class="centered">
+	<h2 id="title">blocks<sup>alpha</sup></h2>
+
+	<div class="btn" id="start">Start</div>
+
+</div>
+
+<div id="sidebar">
+	<h2 id="title">blocks<sup>alpha</sup></h2>
+
+	<div class="btn" id="restart-level">Restart Level</div>
+	<div class="btn hide" id="random-level">Random</div>
+	<div class="btn" id="next-level">Next Level</div>
+
+	
+	<h2 id="level">0</h2>
+	<div id="timer">0:00</div>
+
+	<div id="results">
+	</div>
+
+	<div id="credits">
+		<div class="right">code by @<a href="http://twitter.com/mkeblx">mkeblx</a></div>
+		webgl via <a href="http://threejs.org">three.js
+	</div>
+
+</div>
+</body>
+</html>

@@ -1,0 +1,147 @@
+@import "compass/reset";
+
+/*
+main stylesheet
+*/
+
+*, *:before, *:after {
+	-moz-box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+	box-sizing: border-box;
+}
+
+html,body {
+	margin: 0;
+	padding: 0;
+	overflow: hidden;
+	height: 100%;
+	width: 100%;
+}
+
+body
+{
+	background-color: #ccc;
+	font-family: 'Roboto', monospace;
+}
+
+#container
+{
+	width: 540px;
+	height: 100%;
+	margin: 0px auto;
+}
+
+a {
+	color: #111;
+
+	&:visited {
+		color: #111;
+	}
+}
+
+$width: 400px;
+
+#menu {
+	margin: 0px auto;
+	width: $width;
+	height: 400px;
+	border: 0px solid #888;
+	background-color: rgba(255,255,255,0.4);
+	text-align: center;
+	border-radius: 200px;
+
+	padding-top: 165px;
+
+	margin-left: -($width/2);
+	margin-top: -($width/2);
+
+	h2 {
+		margin-top: 10px;
+		margin-bottom: 10px;
+		font-size: 32px;
+		color: rgba(0,0,0,0.5);
+	}
+
+	sup {
+		font-size: 12px;
+		vertical-align: 70%;
+		padding-left: 2px;
+
+	}
+}
+
+#sidebar {
+	position: absolute;
+	right: 10px;
+	top: 10px;
+	padding: 10px 10px;
+	opacity: 0.8;
+
+	background-color: rgba(255,255,255,0.3);
+
+	border: 0px solid #fff;
+	width: 300px;
+
+
+	h2 {
+		margin-bottom: 10px;
+		font-size: 20px;
+	}
+
+	sup {
+		font-size: 12px;
+		vertical-align: 60%;
+		padding-left: 2px;
+
+	}
+
+	#results {
+		margin-top: 20px;
+
+		.time {
+			float: right;
+		}
+	}
+
+	#credits {
+		margin-top: 10px;
+		font-size: 13px;
+		line-height: 13px;
+	}
+}
+
+.centered {
+	position: fixed;
+	top: 50%;
+	left: 50%;
+}
+
+.btn {
+	display: inline-block;
+	padding: 5px;
+	background-color: #ffffff;
+	border: 1px solid black;
+	font-size: 12px;
+	transition: background-color 0.15s linear;
+}
+
+.btn:hover {
+	cursor: pointer;
+	background-color: #ccc;
+}
+
+.right {
+	float: right;
+}
+
+.left {
+	float: left;
+}
+
+.hide {
+	display: none;
+}
+
+.show { 
+	display: block;
+}
