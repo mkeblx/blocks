@@ -15,7 +15,7 @@ if (!Detector.webgl) {
 
 var DEBUG = 0;
 var config = {
-	postprocess: 1,
+	postprocess: 0,
 	debug: 0,
 	animate: {
 		player: 1,
@@ -67,7 +67,8 @@ function init() {
 	scene.fog = new THREE.FogExp2( BG_COLOR, 0.0002 );
 
 	renderer = new THREE.WebGLRenderer({
-		antialias: true});
+		antialias: true });
+		//alpha: true});
 
 	renderer.shadowMapEnabled = true;
 	renderer.shadowMapSoft = true;
@@ -75,7 +76,9 @@ function init() {
 	renderer.shadowMapHeight = 2048;
 	renderer.shadowMapType = THREE.PCFSoftShadowMap;
 
-	renderer.setClearColor(BG_COLOR, 1);
+	renderer.setClearColor(BG_COLOR, 0);
+	//renderer.setClearColor( 0x000000, 0 );
+
 	renderer.setSize(window.innerWidth, window.innerHeight);
 
 	container.appendChild(renderer.domElement);
@@ -158,16 +161,6 @@ function setupPostprocessing() {
 	*/
 }
 
-function onWindowResize() {
-
-	camera.aspect = window.innerWidth / window.innerHeight;
-	camera.updateProjectionMatrix();
-
-	renderer.setSize(window.innerWidth, window.innerHeight);
-
-}
-
-
 function animate() {
 	requestAnimationFrame(animate);
 
@@ -233,7 +226,7 @@ function setupEvents()
 	document.addEventListener( 'mousewheel', onDocumentMouseWheel, false );
 	//$(document).on('mousewheel', onDocumentMouseWheel); // might need plugin to x-handle
 
-	$(document).on('resize', onWindowResize);
+	$(window).on('resize', _.throttle(onWindowResize, 1000/20));
 
 	$('#restart-level').on('click', function(){
 		game.resetLevel();
@@ -248,10 +241,15 @@ function setupEvents()
 
 function onWindowResize(event) {
 	console.log('resize event');
-	return;
+	//return;
+
+	renderer.setSize(window.innerWidth, window.innerHeight);
+	// update the camera
+	camera.aspect = window.innerWidth / window.innerHeight;
+	camera.updateProjectionMatrix();
 
 	var s = 1;
-	renderer.setSize( s * window.innerWidth, s * window.innerHeight );
+	//renderer.setSize( s * window.innerWidth, s * window.innerHeight );
 }
 
 function onDocumentMouseDown(event) {
@@ -294,9 +292,7 @@ Number.prototype.clamp = function(min, max) {
 };
 
 function onDocumentMouseWheel(event) {
-	console.log(event);
-
-	var MAX_ZOOM = 3000, MIN_ZOOM = 1000;
+	var MAX_ZOOM = 8000, MIN_ZOOM = 1000;
 
 	radious -= event.wheelDeltaY;
 

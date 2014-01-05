@@ -86,25 +86,26 @@ html, body {
 body {
   background-color: #ccc;
   font-family: 'Roboto', monospace;
+  background-image: radial-gradient(transparent, rgba(0, 0, 0, 0.7));
 }
 
-/* line 28, sass/style.scss */
+/* line 30, sass/style.scss */
 #container {
   width: 540px;
   height: 100%;
   margin: 0px auto;
 }
 
-/* line 34, sass/style.scss */
+/* line 36, sass/style.scss */
 a {
   color: #111;
 }
-/* line 37, sass/style.scss */
+/* line 39, sass/style.scss */
 a:visited {
   color: #111;
 }
 
-/* line 44, sass/style.scss */
+/* line 46, sass/style.scss */
 #menu {
   margin: 0px auto;
   width: 400px;
@@ -117,21 +118,21 @@ a:visited {
   margin-left: -200px;
   margin-top: -200px;
 }
-/* line 58, sass/style.scss */
+/* line 60, sass/style.scss */
 #menu h2 {
   margin-top: 10px;
   margin-bottom: 10px;
   font-size: 32px;
   color: rgba(0, 0, 0, 0.5);
 }
-/* line 65, sass/style.scss */
+/* line 67, sass/style.scss */
 #menu sup {
   font-size: 12px;
   vertical-align: 70%;
   padding-left: 2px;
 }
 
-/* line 73, sass/style.scss */
+/* line 75, sass/style.scss */
 #sidebar {
   position: absolute;
   right: 10px;
@@ -142,40 +143,40 @@ a:visited {
   border: 0px solid #fff;
   width: 300px;
 }
-/* line 86, sass/style.scss */
+/* line 88, sass/style.scss */
 #sidebar h2 {
   margin-bottom: 10px;
   font-size: 20px;
 }
-/* line 91, sass/style.scss */
+/* line 93, sass/style.scss */
 #sidebar sup {
   font-size: 12px;
   vertical-align: 60%;
   padding-left: 2px;
 }
-/* line 98, sass/style.scss */
+/* line 100, sass/style.scss */
 #sidebar #results {
   margin-top: 20px;
 }
-/* line 101, sass/style.scss */
+/* line 103, sass/style.scss */
 #sidebar #results .time {
   float: right;
 }
-/* line 106, sass/style.scss */
+/* line 108, sass/style.scss */
 #sidebar #credits {
   margin-top: 10px;
   font-size: 13px;
   line-height: 13px;
 }
 
-/* line 113, sass/style.scss */
+/* line 115, sass/style.scss */
 .centered {
   position: fixed;
   top: 50%;
   left: 50%;
 }
 
-/* line 119, sass/style.scss */
+/* line 121, sass/style.scss */
 .btn {
   display: inline-block;
   padding: 5px;
@@ -185,28 +186,28 @@ a:visited {
   transition: background-color 0.15s linear;
 }
 
-/* line 128, sass/style.scss */
+/* line 130, sass/style.scss */
 .btn:hover {
   cursor: pointer;
   background-color: #ccc;
 }
 
-/* line 133, sass/style.scss */
+/* line 135, sass/style.scss */
 .right {
   float: right;
 }
 
-/* line 137, sass/style.scss */
+/* line 139, sass/style.scss */
 .left {
   float: left;
 }
 
-/* line 141, sass/style.scss */
+/* line 143, sass/style.scss */
 .hide {
   display: none;
 }
 
-/* line 145, sass/style.scss */
+/* line 147, sass/style.scss */
 .show {
   display: block;
 }
