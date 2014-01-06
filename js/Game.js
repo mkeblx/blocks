@@ -21,6 +21,9 @@ var Game = Class.extend({
 		}
 
 		this.player = new Player('Moi');
+
+		this.time = 0;
+		this.timer = null;
 	},
 
 	startLevel: function(levelNum)
@@ -33,6 +36,8 @@ var Game = Class.extend({
 		this.level.grid.draw();
 
 		this.player.setStartPosition(this.level.getStartPt());
+
+		this.startTimer();
 	},
 
 	resetLevel: function()
@@ -86,6 +91,31 @@ var Game = Class.extend({
 	gameComplete: function()
 	{
 		alert('You\'ve won! You must pay for more levels');
+	},
+
+	startTimer: function()
+	{
+		if (this.timer)
+			this.stopTimer();
+
+		var that = this;
+
+		this.time = 0;
+		this.timer = setInterval(function(){ that.updateTimer(); }, 1000);
+	},
+
+	stopTimer: function()
+	{
+		clearInterval(this.timer);
+	},
+
+	updateTimer: function()
+	{
+		this.time++;
+
+		var formatTime = Math.round(this.time / 60) + ":" + (this.time % 60 < 10 ? '0' : '') + (this.time % 60);
+
+		$('#timer').html(formatTime);
 	},
 
 	draw: function() {

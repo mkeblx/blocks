@@ -93,8 +93,8 @@ var Piece = Class.extend({
 		var material = new THREE.MeshLambertMaterial({
 			color: color,
 			overdraw: true,
-			transparent: true,
-			opacity: 0.8 });
+			transparent: 1,
+			opacity: 0.7 });
 
 		var container = new THREE.Object3D();
 
@@ -112,10 +112,6 @@ var Piece = Class.extend({
 		p.receiveShadow = true;
 
 		container.add(p);
-
-		//todo: put all in container, in level/grid and animate...
-
-		var animate = 1;
 
 		var deltaT = 250; // make dynamic based on dist
 

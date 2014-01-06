@@ -86,9 +86,7 @@ var Player = Class.extend({
 			y: endY,
 			z: endZ };
 
-		var animate = 1;
-
-		var deltaT = 400; // make dynamic based on dist
+		var deltaT = 400;
 
 		var tween = new TWEEN.Tween(at)
 			.to(target, deltaT)
@@ -97,7 +95,7 @@ var Player = Class.extend({
 			})
 			.easing(TWEEN.Easing.Cubic.Out);
 
-		if (animate) {
+		if (window.config.animate.player) {
 			tween.start();
 		} else {
 			plr.position.set(endX, endZ, endY);

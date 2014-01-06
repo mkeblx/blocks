@@ -152,9 +152,9 @@ var Grid = Class.extend({
 		}
 
 		var material = new THREE.LineBasicMaterial({
-			color: 0x000000,
-			opacity: 0.2,
-			transparent: true });
+			color: 0xaaaaaa,
+			linewidth: 1,
+			transparent: false });
 
 		var line = new THREE.Line(geometry, material);
 		line.type = THREE.LinePieces;

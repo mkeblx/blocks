@@ -18,7 +18,7 @@ module.exports = function(grunt) {
 					'js/libs/three.min.js',
 					'js/libs/shaders/CopyShader.js',
 					'js/libs/shaders/VignetteShader.js',
-					'/js/libs/shaders/FXAAShader.js',
+					'js/libs/shaders/FXAAShader.js',
 					'js/libs/postprocessing/EffectComposer.js',
 					'js/libs/postprocessing/RenderPass.js',
 					'js/libs/postprocessing/MaskPass.js',

@@ -14,8 +14,9 @@ if (!Detector.webgl) {
 }
 
 var DEBUG = 0;
-var config = {
-	postprocess: 0,
+window.config = {
+	autostart: 0,
+	postprocess: 1,
 	debug: 0,
 	animate: {
 		player: 1,
@@ -23,6 +24,7 @@ var config = {
 		level: 1
 	}
 };
+window.BG_COLOR = 0xcccccc;
 
 var container, stats;
 
@@ -37,8 +39,6 @@ var target = new THREE.Vector3(0,0,0);
 Math.deg2rad = Math.PI/180;
 Math.deg2rad_h = Math.deg2rad/2;
 
-
-window.BG_COLOR = 0xcccccc;
 
 var isMouseDown = false;
 var isShiftDown = false, isCtrlDown = false, isAltDown = false;
@@ -67,8 +67,8 @@ function init() {
 	scene.fog = new THREE.FogExp2( BG_COLOR, 0.0002 );
 
 	renderer = new THREE.WebGLRenderer({
-		antialias: true });
-		//alpha: true});
+		antialias: true,
+		alpha: 0});
 
 	renderer.shadowMapEnabled = true;
 	renderer.shadowMapSoft = true;
@@ -100,17 +100,17 @@ function init() {
 
 
 	$(document).on('click', '#start', function(){
-		startGame();
-		$('#start').attr('id','#restart').html('restart');
 		$('#menu').hide();
+		$('#start').attr('id','#restart').html('restart');
+		startGame();
 	});
 
-	var autostart = 0; // tmp: t.b.controllable
-	if(autostart)
+	if(config.autostart)
 		$('#start').click();
 
-
 	animate();
+
+	window.game = new Game();
 }
 
 
@@ -147,18 +147,20 @@ function setupPostprocessing() {
 
 
 	var vignettePass = new THREE.ShaderPass( THREE.VignetteShader );
-	vignettePass.uniforms[ "darkness" ].value = 0.7;
-	vignettePass.uniforms[ "offset" ].value = 0.8;
-	vignettePass.renderToScreen = true;
+	vignettePass.uniforms[ "darkness" ].value = 0.9;
+	vignettePass.uniforms[ "offset" ].value = 0.5;
+	//vignettePass.renderToScreen = true;
 
 	composer.addPass( vignettePass );
 
-	/*var shader = new THREE.ShaderPass( THREE.FXAAShader );
-	shader.uniforms[ "resolution" ].value = new THREE.Vector2( 1 / 1024, 1 / 512 );
-	shader.renderToScreen = true;
+	var dpr = 1;
 
-	composer.addPass( shader );
-	*/
+	var fxaa = new THREE.ShaderPass( THREE.FXAAShader );
+	fxaa.uniforms['resolution'].value.set(1 / (window.innerWidth * dpr), 1 / (window.innerHeight * dpr));
+	//shader.uniforms[ "resolution" ].value = new THREE.Vector2( 1 / 1024, 1 / 512 );
+	fxaa.renderToScreen = true;
+
+	composer.addPass( fxaa );
 }
 
 function animate() {
@@ -184,8 +186,6 @@ function getData() {
 }
 
 function startGame() {
-	window.game = new Game({mode: '3D'});
-
 	var deltaT = 1400;
 
 	//zoom in
@@ -240,16 +240,10 @@ function setupEvents()
 }
 
 function onWindowResize(event) {
-	console.log('resize event');
-	//return;
-
 	renderer.setSize(window.innerWidth, window.innerHeight);
-	// update the camera
+
 	camera.aspect = window.innerWidth / window.innerHeight;
 	camera.updateProjectionMatrix();
-
-	var s = 1;
-	//renderer.setSize( s * window.innerWidth, s * window.innerHeight );
 }
 
 function onDocumentMouseDown(event) {
