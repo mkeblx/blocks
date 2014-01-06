@@ -64,7 +64,6 @@ var Game = Class.extend({
 	},
 
 	//reset stuff for next level
-	//TODO: append record of time to sidebar
 	gotoNextLevel: function(inc)
 	{
 		if (inc)
@@ -76,7 +75,9 @@ var Game = Class.extend({
 			return false;
 		}
 
-		$('#results').append('<div><span>'+this.currLevel+'</span><span class="time">'+'0:00'+'</span></div>');
+		var levelTime = $('#timer').html();
+
+		$('#results').append('<div><span>'+this.currLevel+'</span><span class="time">'+levelTime+'</span></div>');
 
 		//reset stuff
 		this.level.remove();

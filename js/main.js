@@ -32,7 +32,7 @@ var camera, renderer, composer;
 
 window.scene;
 
-var sphere, plane;
+var topCamera;
 
 var target = new THREE.Vector3(0,0,0);
 
@@ -49,6 +49,8 @@ var radious = 8000,
 	theta = 45, onMouseDownTheta = 45,
 	phi = 60, onMouseDownPhi = 60;
 
+var SCREEN_WIDTH = window.innerWidth, SCREEN_HEIGHT = window.innerHeight;
+
 function _init() {
 	getData();
 }
@@ -60,7 +62,18 @@ function init() {
 	camera = new THREE.PerspectiveCamera(40, window.innerWidth / window.innerHeight, 1, 10000);
 	setCameraPosition();
 
+	topCamera = new THREE.OrthographicCamera(
+	window.innerWidth / -4,		// Left
+	window.innerWidth / 4,		// Right
+	window.innerHeight / 4,		// Top
+	window.innerHeight / -4,	// Bottom
+	-5000,            			// Near 
+	10000 );           			// Far -- enough to see the skybox
+	topCamera.up = new THREE.Vector3(0,0,-1);
+	topCamera.lookAt( new THREE.Vector3(0,-1,0) );
+
 	scene = new THREE.Scene();
+	scene.add(topCamera);
 
 	setupLights();
 
@@ -68,13 +81,14 @@ function init() {
 
 	renderer = new THREE.WebGLRenderer({
 		antialias: true,
-		alpha: 0});
-
-	renderer.shadowMapEnabled = true;
-	renderer.shadowMapSoft = true;
-	renderer.shadowMapWidth = 2048;
-	renderer.shadowMapHeight = 2048;
-	renderer.shadowMapType = THREE.PCFSoftShadowMap;
+		alpha: 0,
+		shadowMapEnabled: true,
+		shadowMapSoft: true,
+		shadowMapWidth: 2048,
+		shadowMapHeight: 2048,
+		shadowMapType: THREE.PCFSoftShadowMap,
+		autoclear: false
+	});
 
 	renderer.setClearColor(BG_COLOR, 0);
 	//renderer.setClearColor( 0x000000, 0 );
@@ -83,7 +97,7 @@ function init() {
 
 	container.appendChild(renderer.domElement);
 
-	if (DEBUG){
+	if (DEBUG) {
 		var axes = new THREE.AxisHelper(30);
 		scene.add(axes);
 	}
@@ -105,7 +119,7 @@ function init() {
 		startGame();
 	});
 
-	if(config.autostart)
+	if (config.autostart)
 		$('#start').click();
 
 	animate();
@@ -157,7 +171,6 @@ function setupPostprocessing() {
 
 	var fxaa = new THREE.ShaderPass( THREE.FXAAShader );
 	fxaa.uniforms['resolution'].value.set(1 / (window.innerWidth * dpr), 1 / (window.innerHeight * dpr));
-	//shader.uniforms[ "resolution" ].value = new THREE.Vector2( 1 / 1024, 1 / 512 );
 	fxaa.renderToScreen = true;
 
 	composer.addPass( fxaa );
@@ -173,6 +186,12 @@ function animate() {
 
 function render() {
 	camera.lookAt(target);
+
+	//renderer.setViewport( 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT );
+	//renderer.render(scene, camera);
+
+	//renderer.setViewport( 1, 200, 200, 200 );
+	//renderer.render( scene, topCamera );
 
 	config.postprocess ? composer.render() : renderer.render(scene, camera);
 }

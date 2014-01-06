@@ -85,9 +85,12 @@ $width: 400px;
 	border: 0px solid #fff;
 	width: 300px;
 
+	h1 {
+		font-size: 26px;
+		margin-bottom: 10px;
+	}
 
 	h2 {
-		margin-bottom: 10px;
 		font-size: 20px;
 	}
 
@@ -98,8 +101,27 @@ $width: 400px;
 
 	}
 
+	#lvl {
+		margin-top: 10px;
+
+		h2 {
+
+		}
+
+		#timer {
+			float: right;
+		}
+
+		#level {
+
+		}
+	}
+
 	#results {
-		margin-top: 20px;
+		margin-top: 10px;
+
+		max-height: 400px;
+		overflow-y: scroll;
 
 		.time {
 			float: right;
