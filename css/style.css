@@ -185,13 +185,20 @@ a:visited {
 }
 
 /* line 138, sass/style.scss */
+#dat-gui-container {
+  position: absolute;
+  left: 90px;
+  top: 0px;
+}
+
+/* line 144, sass/style.scss */
 .centered {
   position: fixed;
   top: 50%;
   left: 50%;
 }
 
-/* line 144, sass/style.scss */
+/* line 150, sass/style.scss */
 .btn {
   display: inline-block;
   padding: 5px;
@@ -201,28 +208,28 @@ a:visited {
   transition: background-color 0.15s linear;
 }
 
-/* line 153, sass/style.scss */
+/* line 159, sass/style.scss */
 .btn:hover {
   cursor: pointer;
   background-color: #ccc;
 }
 
-/* line 158, sass/style.scss */
+/* line 164, sass/style.scss */
 .right {
   float: right;
 }
 
-/* line 162, sass/style.scss */
+/* line 168, sass/style.scss */
 .left {
   float: left;
 }
 
-/* line 166, sass/style.scss */
+/* line 172, sass/style.scss */
 .hide {
   display: none;
 }
 
-/* line 170, sass/style.scss */
+/* line 176, sass/style.scss */
 .show {
   display: block;
 }

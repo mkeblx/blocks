@@ -13,11 +13,10 @@ if (!Detector.webgl) {
 	return;
 }
 
-var DEBUG = 0;
 window.config = {
+	debug: 1,
 	autostart: 0,
 	postprocess: 1,
-	debug: 0,
 	animate: {
 		player: 1,
 		piece: 1,
@@ -26,7 +25,7 @@ window.config = {
 };
 window.BG_COLOR = 0xcccccc;
 
-var container, stats;
+var container, stats = { update: function(){} }, gui;
 
 var camera, renderer, composer;
 
@@ -63,12 +62,12 @@ function init() {
 	setCameraPosition();
 
 	topCamera = new THREE.OrthographicCamera(
-	window.innerWidth / -4,		// Left
-	window.innerWidth / 4,		// Right
-	window.innerHeight / 4,		// Top
-	window.innerHeight / -4,	// Bottom
-	-5000,            			// Near 
-	10000 );           			// Far -- enough to see the skybox
+		window.innerWidth / -4,		// Left
+		window.innerWidth / 4,		// Right
+		window.innerHeight / 4,		// Top
+		window.innerHeight / -4,	// Bottom
+		-5000,            			// Near 
+		10000 );           			// Far -- enough to see the skybox
 	topCamera.up = new THREE.Vector3(0,0,-1);
 	topCamera.lookAt( new THREE.Vector3(0,-1,0) );
 
@@ -80,15 +79,13 @@ function init() {
 	scene.fog = new THREE.FogExp2( BG_COLOR, 0.0002 );
 
 	renderer = new THREE.WebGLRenderer({
-		antialias: true,
-		alpha: 0,
-		shadowMapEnabled: true,
-		shadowMapSoft: true,
-		shadowMapWidth: 2048,
-		shadowMapHeight: 2048,
-		shadowMapType: THREE.PCFSoftShadowMap,
-		autoclear: false
-	});
+		antialias: true});
+
+	renderer.shadowMapEnabled = true;
+	renderer.shadowMapSoft = true;
+	renderer.shadowMapWidth = 2048;
+	renderer.shadowMapHeight = 2048;
+	renderer.shadowMapType = THREE.PCFSoftShadowMap;
 
 	renderer.setClearColor(BG_COLOR, 0);
 	//renderer.setClearColor( 0x000000, 0 );
@@ -97,21 +94,39 @@ function init() {
 
 	container.appendChild(renderer.domElement);
 
-	if (DEBUG) {
+	if (config.debug) {
 		var axes = new THREE.AxisHelper(30);
 		scene.add(axes);
 	}
 
-	stats = new Stats();
-	stats.domElement.style.position = 'absolute';
-	stats.domElement.style.top = '0px';
-	if (DEBUG) {
+	if (config.debug || 1) {
+		stats = new Stats();
+		stats.domElement.style.position = 'absolute';
+		stats.domElement.style.top = '0px';
 		container.appendChild(stats.domElement);
 	}
 
 	if (config.postprocess)
 		setupPostprocessing();
 
+	if (config.debug) {
+		gui = new dat.GUI({ autoPlace: false });
+
+		var customContainer = document.getElementById('dat-gui-container');
+		if (customContainer) customContainer.appendChild(gui.domElement);
+
+		var Actions = function() {
+			this.vignette = function(){
+				config.postprocess = !config.postprocess;
+			};
+		};
+
+		var actions = new Actions();
+
+		var f1 = gui.addFolder('setupPostprocessing');
+		f1.add(actions, 'vignette');
+		f1.open();
+	}
 
 	$(document).on('click', '#start', function(){
 		$('#menu').hide();
@@ -140,7 +155,7 @@ function setupLights() {
 	dl.castShadow = true;
 	dl.shadowDarkness = 0.2;
 
-	if (DEBUG) dl.shadowCameraVisible = true;
+	if (config.debug) dl.shadowCameraVisible = true;
 
 	scene.add(dl);
 
@@ -163,9 +178,11 @@ function setupPostprocessing() {
 	var vignettePass = new THREE.ShaderPass( THREE.VignetteShader );
 	vignettePass.uniforms[ "darkness" ].value = 0.9;
 	vignettePass.uniforms[ "offset" ].value = 0.5;
-	//vignettePass.renderToScreen = true;
+	vignettePass.renderToScreen = true;
 
 	composer.addPass( vignettePass );
+
+	return;
 
 	var dpr = 1;
 

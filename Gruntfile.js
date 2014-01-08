@@ -25,6 +25,7 @@ module.exports = function(grunt) {
 					'js/libs/postprocessing/ShaderPass.js',
 					'js/libs/Stats.js',
 					'js/libs/Detector.js',
+					'js/libs/dat.gui.min.js',
 					'js/libs/tween.min.js'],
 				dest: 'js/libs/libs.js'
 			}
