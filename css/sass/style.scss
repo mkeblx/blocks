@@ -137,7 +137,7 @@ $width: 400px;
 
 #dat-gui-container {
 	position: absolute;
-	left: 90px;
+	left: 100px;
 	top: 0px;
 }
 
@@ -176,3 +176,70 @@ $width: 400px;
 .show { 
 	display: block;
 }
+
+/* stats */
+
+#stats {
+	position: absolute;
+	left: 10px !important;
+	top: 10px !important;
+	opacity: 1.0;
+}
+
+#stats #fps {
+	padding: 1px !important;
+	background-color: rgba(0,0,0,0.2) !important;
+	opacity: 0.8;
+
+	#fpsText {
+		left: 1px;
+		color: #fff !important;
+		padding: 0 1px;
+		font-family: 'Roboto', monospace;
+		font-weight: 300 !important;
+	}
+
+	#fpsGraph {
+		left: 1px;
+		padding: 0px;
+		margin-bottom:1px;
+		background-color: rgba(255,255,255,0.7) !important;
+		overflow: hidden;
+		
+		span {
+			border-bottom: 1px solid !important;
+			border-color: rgba(255,255,255,0.9) !important;
+			background-color: rgba(0,0,0,0.3) !important;
+		}
+	}
+}
+
+#stats #ms {
+	padding: 1px !important;
+	background-color: rgba(0,0,0,0.2) !important;
+	opacity: 0.8;	
+	
+	#msText {
+		left: 1px;
+		color: #fff !important;
+		padding: 0 1px;
+		font-family: 'Roboto', monospace;
+		font-weight: 300 !important;
+	}
+
+	#msGraph {
+		left: 1px;
+		padding: 0px;
+		margin-bottom:1px;
+		background-color: rgba(255,255,255,0.7) !important;
+		overflow: hidden;
+	
+		span {
+			border-bottom: 1px solid !important;
+			border-color: rgba(255,255,255,0.9) !important;
+			background-color: rgba(0,0,0,0.3) !important;
+		}
+	}
+}
+
+/* ^ stats */

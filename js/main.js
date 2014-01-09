@@ -101,8 +101,6 @@ function init() {
 
 	if (config.debug || 1) {
 		stats = new Stats();
-		stats.domElement.style.position = 'absolute';
-		stats.domElement.style.top = '0px';
 		container.appendChild(stats.domElement);
 	}
 
@@ -116,15 +114,15 @@ function init() {
 		if (customContainer) customContainer.appendChild(gui.domElement);
 
 		var Actions = function() {
-			this.vignette = function(){
+			this.postprocess = function(){
 				config.postprocess = !config.postprocess;
 			};
 		};
 
 		var actions = new Actions();
 
-		var f1 = gui.addFolder('setupPostprocessing');
-		f1.add(actions, 'vignette');
+		var f1 = gui.addFolder('postprocessing');
+		f1.add(actions, 'postprocess');
 		f1.open();
 	}
 
