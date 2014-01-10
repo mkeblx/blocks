@@ -14,7 +14,7 @@ if (!Detector.webgl) {
 }
 
 window.config = {
-	debug: 1,
+	debug: 0,
 	autostart: 0,
 	postprocess: 1,
 	animate: {
