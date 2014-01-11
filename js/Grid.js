@@ -168,8 +168,6 @@ var Grid = Class.extend({
 			transparent: true,
 			opacity: 0.6,
 			side: THREE.DoubleSide });
-		
-		//var floorGeometry = new THREE.PlaneGeometry(gridSize*(this.cols+100), gridSize*(this.cols+100), this.rows, this.cols);
 
 		var floorGeometry = new THREE.CircleGeometry( gridSize*(this.cols+100), 20, 0, Math.PI * 2 );
 
@@ -216,10 +214,11 @@ var Grid = Class.extend({
 
 });
 
-Grid.DIRS = {'LEFT': 	new GPoint(-1,0),
-			 'UP': 		new GPoint(0,-1),
-			 'RIGHT': 	new GPoint(1,0),
-			 'DOWN': 	new GPoint(0,1)};
+Grid.DIRS = {
+	'LEFT': 	new GPoint(-1,0),
+	'UP': 		new GPoint(0,-1),
+	'RIGHT': 	new GPoint(1,0),
+	'DOWN': 	new GPoint(0,1)};
 
 return Grid;
 

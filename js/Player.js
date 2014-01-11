@@ -11,10 +11,15 @@ var Player = Class.extend({
 	{
 		this.pos = new GPoint(pos.x, pos.y);
 
-		if (!this.el)
+		var first = !this.el;
+
+		if (first)
 			this.draw();
 		
 		this.update();
+
+		if (!first)
+			this.scale(0.1, 1.0, 400, 300);
 	},
 
 	//move, if possible
@@ -30,11 +35,16 @@ var Player = Class.extend({
 		var nextState = grid.stateAt(newPos);
 		var currState = grid.stateAt(this.pos);
 
+		var endPt = game.level.getEndPt();
+
+		if (endPt.equals(this.pos))
+			return false;
+
 		if (nextState === 'PIECE_UP' || nextState === 'PIECE_DOWN') {
 			//noop, continue onwards
 		} else { // nextState is empty
 			if (currState === 'PIECE_UP') {
-				//okay, *might* want to knock down a piece	
+				//okay, *might* want to knock down a piece
 				var currPiece = grid.pieceAt(this.pos);
 				if (currPiece == null)
 					return false;
@@ -58,9 +68,23 @@ var Player = Class.extend({
 		this.pos.add(dir);
 		this.update();
 
-		var endPt = game.level.getEndPt();
 		if (endPt.equals(this.pos)) {
-			game.gotoNextLevel(true);
+
+			var deltaT = 400;
+
+			var plr = this.el;
+
+			var tween = new TWEEN.Tween({ s: 1 })
+				.to({ s: 0.1 }, deltaT)
+				.onUpdate(function(){
+					plr.scale.set(this.s, this.s, this.s);
+				})
+				.onComplete(
+					function(){ game.gotoNextLevel(true); }
+					)
+				.easing(TWEEN.Easing.Cubic.Out)
+				.delay(400)
+				.start();
 		}
 
 		return true;
@@ -95,7 +119,7 @@ var Player = Class.extend({
 			})
 			.easing(TWEEN.Easing.Cubic.Out);
 
-		if (window.config.animate.player) {
+		if (config.animate.player) {
 			tween.start();
 		} else {
 			plr.position.set(endX, endZ, endY);
@@ -120,6 +144,19 @@ var Player = Class.extend({
 		scene.add(mesh);
 
 		this.el = mesh;
+	},
+
+	scale: function(from, to, time, delay) {
+		var plr = this.el;
+
+		var tween = new TWEEN.Tween({ s: from })
+			.to({ s: to }, time)
+			.onUpdate(function(){
+				plr.scale.set(this.s, this.s, this.s);
+			})
+			.easing(TWEEN.Easing.Cubic.Out)
+			.delay(delay)
+			.start();
 	},
 
 	toString: function(){

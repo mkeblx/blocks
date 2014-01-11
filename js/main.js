@@ -253,6 +253,8 @@ function setupEvents()
 	$(document).on('keydown', onKeyDown);
 	$(document).on('keyup', onKeyUp);
 
+	var state = new THREEx.KeyboardState();
+
 	$(document).on('mousemove',  onDocumentMouseMove);
 	$(document).on('mousedown',  onDocumentMouseDown);
 	$(document).on('mouseup',    onDocumentMouseUp);
@@ -359,15 +361,18 @@ function onKeyDown(ev) {
 
 	if (code == KEYS.R) // r => restart
 		game.resetLevel();
+
+	if (code == KEYS.D)
+		config.debug = !config.debug;
 }
 
 function onKeyUp(ev) {
 	var code = ev.keyCode;
 
-	if (code === 16) {
+	if (code === KEYS.SHIFT) {
 		isShiftDown = false;
 	}
-	if (code === 17) {
+	if (code === KEYS.CTRL) {
 		isCtrlDown = false;
 	}
 
