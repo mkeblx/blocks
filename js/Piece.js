@@ -83,7 +83,7 @@ var Piece = Class.extend({
 	},
 
 	//endPiece?: boolean
-	draw: function(board, endPiece){
+	draw: function(board, endPiece, n){
 		var gridSize = game.gridSize;
 
 		var space = 0.1;
@@ -96,36 +96,35 @@ var Piece = Class.extend({
 			transparent: 1,
 			opacity: 0.7 });
 
-		var container = new THREE.Object3D();
 
 		var p = new THREE.Mesh(geometry, material);
 
 		var d = -(game.level.grid.rows-1)*gridSize / 2;
 
-		container.position.x = d + this.pt.x*gridSize;
-		
+		var container = new THREE.Object3D();
+		container.position.x = d + this.pt.x*gridSize;		
 		container.position.z = d + this.pt.y*gridSize;
 
-		p.position.y = this.len * gridSize/2;
+		var endPos = this.len * gridSize/2;
+		p.position.y = -5000;
 
 		p.castShadow = true;
 		p.receiveShadow = true;
 
 		container.add(p);
 
-		var deltaT = 250; // make dynamic based on dist
+		var deltaT = 750;
 
-		var at = {s: 0.0}, target = {s: 1.0};
+		var at = {s: -endPos}, target = {s: endPos};
 
 		var tween = new TWEEN.Tween(at)
 			.to(target, deltaT)
 			.onUpdate(function(){
-				p.scale.y = this.s;
+				p.position.y = this.s;
 			})
-			.easing(TWEEN.Easing.Cubic.Out);
-
-		tween.start();
-
+			.delay(100*n)
+			.easing(TWEEN.Easing.Cubic.Out)
+			.start();
 
 		this.el = p;
 		this.c = container;

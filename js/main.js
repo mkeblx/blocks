@@ -1,17 +1,15 @@
 define(function(require){
 
+if (!Detector.webgl) {
+	alert('I\'m sorry, you\'re browser doesn\'t support WebGL.');
+	return;
+}
+
 window.Class = require('Class');
 
 var Game = require('Game');
 var Grid = require('Grid');
 var KEYS = require('Keys');
-
-$(_init);
-
-if (!Detector.webgl) {
-	alert('I\'m sorry, you\'re browser doesn\'t support WebGL.');
-	return;
-}
 
 window.config = {
 	debug: 0,
@@ -50,9 +48,13 @@ var radious = 8000,
 
 var SCREEN_WIDTH = window.innerWidth, SCREEN_HEIGHT = window.innerHeight;
 
+
+$(_init);
+
 function _init() {
 	getData();
 }
+
 
 function init() {
 	container = document.createElement('div');
@@ -335,7 +337,6 @@ function onDocumentMouseWheel(event) {
 	render();
 }
 
-//handle movements of player to progress gameplay, and camera
 function onKeyDown(ev) {
 
 	var pPos = game.player;

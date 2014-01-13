@@ -7,6 +7,7 @@ var Grid = Class.extend({
 		this.rows = rows;
 		this.cols = cols;
 		this.pieces = [];
+		this.pcContainer = null;
 
 		this.matrix = []; //rows=>cols
 
@@ -182,14 +183,17 @@ var Grid = Class.extend({
 	},
 
 	drawPieces: function() {
+		this.pcContainer = new THREE.Object3D();
 		for (var p = 0; p < this.pieces.length; p++) {
 			var pc = this.pieces[p];
-			pc.draw(this.board, (p === this.pieces.length-1)?true:false);
+			var pcObj = pc.draw(this.board, (p === this.pieces.length-1)?true:false, p);
+			this.pcContainer.add(pcObj);
 		}
 	},
 
 	remove: function() {
 		scene.remove(this.el);
+		this.pcContainer = null;
 
 		for (var p = 0; p < this.pieces.length; p++) {
 			var pc = this.pieces[p];
