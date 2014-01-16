@@ -19,7 +19,8 @@ window.config = {
 		player: 1,
 		piece: 1,
 		level: 1
-	}
+	},
+	levelsUrl: 'data/levels.json'
 };
 window.BG_COLOR = 0xcccccc;
 
@@ -128,14 +129,16 @@ function init() {
 		f1.open();
 	}
 
-	$(document).on('click', '#start', function(){
-		$('#menu').hide();
-		$('#start').attr('id','#restart').html('restart');
-		startGame();
+	$(document).on('keydown', function(ev){
+		if (ev.keyCode === KEYS.ENTER) {
+			startGame();
+		}
 	});
 
+	$(document).on('click', '#start', startGame);
+
 	if (config.autostart)
-		$('#start').click();
+		startGame();
 
 	animate();
 
@@ -215,13 +218,17 @@ function render() {
 
 function getData() {
 
-	$.getJSON('data/levels.json', function(data){
+	$.getJSON(config.levelsUrl, function(data){
 		window.levelData = data;
 		init();
 	});
 }
 
 function startGame() {
+	$(document).off('keydown');
+	$('#menu').hide();
+	$('#start').attr('id','#restart').html('restart');
+
 	var deltaT = 1400;
 
 	//zoom in

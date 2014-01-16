@@ -69,18 +69,18 @@ var Game = Class.extend({
 		if (inc)
 			this.currLevel++;
 
+		var levelTime = $('#timer').html();
+
+		$('#results').append('<div><span class="lvl">'+this.currLevel+'</span><span class="time">'+levelTime+'</span></div>');
+
+		//reset stuff
+		this.level.remove();
+
 		//reached last level
 		if (this.currLevel >= this.levels.length) {
 			this.gameComplete();
 			return false;
 		}
-
-		var levelTime = $('#timer').html();
-
-		$('#results').append('<div><span>'+this.currLevel+'</span><span class="time">'+levelTime+'</span></div>');
-
-		//reset stuff
-		this.level.remove();
 
 		this.startLevel(this.currLevel);
 

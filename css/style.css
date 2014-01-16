@@ -121,19 +121,34 @@ a:visited {
 }
 /* line 61, sass/style.scss */
 #menu h2 {
-  margin-top: 10px;
+  margin-top: -10px;
   margin-bottom: 10px;
-  font-size: 32px;
+  font-size: 52px;
+  line-height: 52px;
+  font-weight: 100;
   color: rgba(0, 0, 0, 0.5);
 }
-/* line 68, sass/style.scss */
+/* line 70, sass/style.scss */
 #menu sup {
-  font-size: 12px;
-  vertical-align: 70%;
+  font-size: 18px;
+  vertical-align: 40%;
+  font-weight: 300;
   padding-left: 2px;
 }
+/* line 78, sass/style.scss */
+#menu #start {
+  margin-top: 10px;
+  width: 60px;
+  height: 60px;
+  border-radius: 100%;
+  font-size: 20px;
+  line-height: 20px;
+  font-weight: 300;
+  padding-top: 18px;
+  color: #333;
+}
 
-/* line 76, sass/style.scss */
+/* line 91, sass/style.scss */
 #sidebar {
   position: absolute;
   right: 10px;
@@ -144,98 +159,133 @@ a:visited {
   border: 0px solid #fff;
   width: 300px;
 }
-/* line 88, sass/style.scss */
+/* line 103, sass/style.scss */
 #sidebar h1 {
   font-size: 26px;
+  line-height: 26px;
   margin-bottom: 10px;
+  font-weight: 100;
+  margin-top: -6px;
 }
-/* line 93, sass/style.scss */
+/* line 111, sass/style.scss */
 #sidebar h2 {
   font-size: 20px;
+  font-weight: 100;
 }
-/* line 97, sass/style.scss */
+/* line 116, sass/style.scss */
 #sidebar sup {
   font-size: 12px;
+  font-weight: 300;
   vertical-align: 60%;
   padding-left: 2px;
 }
-/* line 104, sass/style.scss */
+/* line 124, sass/style.scss */
 #sidebar #lvl {
   margin-top: 10px;
 }
-/* line 111, sass/style.scss */
+/* line 131, sass/style.scss */
 #sidebar #lvl #timer {
   float: right;
 }
-/* line 120, sass/style.scss */
+/* line 140, sass/style.scss */
 #sidebar #results {
   margin-top: 10px;
-  max-height: 400px;
+  max-height: 500px;
   overflow-y: scroll;
 }
-/* line 126, sass/style.scss */
-#sidebar #results .time {
-  float: right;
+/* line 146, sass/style.scss */
+#sidebar #results > div {
+  float: left;
+  width: 50px;
+  padding: 5px;
+  margin-right: 7px;
+  margin-bottom: 7px;
+  border: 1px solid #666;
+  opacity: 0.8;
 }
-/* line 131, sass/style.scss */
+/* line 155, sass/style.scss */
+#sidebar #results > div:nth-child(5n) {
+  margin-right: 0px;
+}
+/* line 159, sass/style.scss */
+#sidebar #results > div .lvl {
+  display: block;
+  font-size: 24px;
+  line-height: 24px;
+  font-weight: 100;
+  text-align: center;
+  margin-bottom: 4px;
+}
+/* line 168, sass/style.scss */
+#sidebar #results > div .time {
+  display: block;
+  text-align: center;
+  font-size: 12px;
+  line-height: 12px;
+  font-weight: 400;
+}
+/* line 179, sass/style.scss */
 #sidebar #credits {
   margin-top: 10px;
   font-size: 13px;
   line-height: 13px;
+  font-weight: 300;
 }
 
-/* line 138, sass/style.scss */
+/* line 187, sass/style.scss */
 #dat-gui-container {
   position: absolute;
   left: 100px;
   top: 0px;
 }
 
-/* line 144, sass/style.scss */
+/* forms/buttons */
+/* line 195, sass/style.scss */
+.btn {
+  display: inline-block;
+  padding: 6px;
+  background-color: rgba(0, 0, 0, 0.2);
+  border: 0px solid #111;
+  font-size: 12px;
+  transition: background-color 0.15s linear;
+}
+
+/* line 204, sass/style.scss */
+.btn:hover {
+  cursor: pointer;
+  background-color: rgba(0, 0, 0, 0.3);
+}
+
+/* misc */
+/* line 211, sass/style.scss */
 .centered {
   position: fixed;
   top: 50%;
   left: 50%;
 }
 
-/* line 150, sass/style.scss */
-.btn {
-  display: inline-block;
-  padding: 5px;
-  background-color: #ffffff;
-  border: 1px solid black;
-  font-size: 12px;
-  transition: background-color 0.15s linear;
-}
-
-/* line 159, sass/style.scss */
-.btn:hover {
-  cursor: pointer;
-  background-color: #ccc;
-}
-
-/* line 164, sass/style.scss */
+/* line 217, sass/style.scss */
 .right {
   float: right;
 }
 
-/* line 168, sass/style.scss */
+/* line 221, sass/style.scss */
 .left {
   float: left;
 }
 
-/* line 172, sass/style.scss */
+/* line 225, sass/style.scss */
 .hide {
   display: none;
 }
 
-/* line 176, sass/style.scss */
+/* line 229, sass/style.scss */
 .show {
   display: block;
 }
 
 /* stats */
-/* line 182, sass/style.scss */
+/* line 235, sass/style.scss */
 #stats {
   position: absolute;
   left: 10px !important;
@@ -243,13 +293,13 @@ a:visited {
   opacity: 1.0;
 }
 
-/* line 189, sass/style.scss */
+/* line 242, sass/style.scss */
 #stats #fps {
   padding: 1px !important;
   background-color: rgba(0, 0, 0, 0.2) !important;
   opacity: 0.8;
 }
-/* line 194, sass/style.scss */
+/* line 247, sass/style.scss */
 #stats #fps #fpsText {
   left: 1px;
   color: #fff !important;
@@ -257,7 +307,7 @@ a:visited {
   font-family: 'Roboto', monospace;
   font-weight: 300 !important;
 }
-/* line 202, sass/style.scss */
+/* line 255, sass/style.scss */
 #stats #fps #fpsGraph {
   left: 1px;
   padding: 0px;
@@ -265,20 +315,20 @@ a:visited {
   background-color: rgba(255, 255, 255, 0.7) !important;
   overflow: hidden;
 }
-/* line 209, sass/style.scss */
+/* line 262, sass/style.scss */
 #stats #fps #fpsGraph span {
   border-bottom: 1px solid !important;
   border-color: rgba(255, 255, 255, 0.9) !important;
   background-color: rgba(0, 0, 0, 0.3) !important;
 }
 
-/* line 217, sass/style.scss */
+/* line 270, sass/style.scss */
 #stats #ms {
   padding: 1px !important;
   background-color: rgba(0, 0, 0, 0.2) !important;
   opacity: 0.8;
 }
-/* line 222, sass/style.scss */
+/* line 275, sass/style.scss */
 #stats #ms #msText {
   left: 1px;
   color: #fff !important;
@@ -286,7 +336,7 @@ a:visited {
   font-family: 'Roboto', monospace;
   font-weight: 300 !important;
 }
-/* line 230, sass/style.scss */
+/* line 283, sass/style.scss */
 #stats #ms #msGraph {
   left: 1px;
   padding: 0px;
@@ -294,7 +344,7 @@ a:visited {
   background-color: rgba(255, 255, 255, 0.7) !important;
   overflow: hidden;
 }
-/* line 237, sass/style.scss */
+/* line 290, sass/style.scss */
 #stats #ms #msGraph span {
   border-bottom: 1px solid !important;
   border-color: rgba(255, 255, 255, 0.9) !important;
