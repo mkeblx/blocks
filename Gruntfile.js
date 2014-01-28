@@ -27,7 +27,7 @@ module.exports = function(grunt) {
 					'js/libs/postprocessing/RenderPass.js',
 					'js/libs/postprocessing/MaskPass.js',
 					'js/libs/postprocessing/ShaderPass.js',
-					'js/libs/THREEx.KeyboardState.js',
+					'js/libs/input.keyboard.js',
 					'js/libs/Stats.js',
 					'js/libs/Detector.js',
 					'js/libs/dat.gui.min.js',

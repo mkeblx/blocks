@@ -7,7 +7,8 @@ var Grid = Class.extend({
 		this.rows = rows;
 		this.cols = cols;
 		this.pieces = [];
-		this.pcContainer = null;
+		this.pcContainer;
+		this.floor;
 
 		this.matrix = []; //rows=>cols
 
@@ -92,8 +93,6 @@ var Grid = Class.extend({
 		var pt = point.copy();
 
 		for (var i = 0; i < len; i++) {
-			//console.log('set state at :',pt.x,pt.y,' to ', state);
-
 			this.setStateAt(pt, state);
 
 			pt.add(direction);
@@ -154,7 +153,7 @@ var Grid = Class.extend({
 
 		var material = new THREE.LineBasicMaterial({
 			color: 0xaaaaaa,
-			linewidth: 1,
+			linewidth: 3,
 			transparent: false });
 
 		var line = new THREE.Line(geometry, material);
@@ -173,8 +172,8 @@ var Grid = Class.extend({
 		var floorGeometry = new THREE.CircleGeometry( gridSize*(this.cols+100), 20, 0, Math.PI * 2 );
 
 		var floor = new THREE.Mesh(floorGeometry, floorMaterial);
+		this.floor = floor;
 		floor.rotation.x = 90*Math.deg2rad;
-
 		floor.receiveShadow = true;
 
 		scene.add(floor);
@@ -193,6 +192,7 @@ var Grid = Class.extend({
 
 	remove: function() {
 		scene.remove(this.el);
+		scene.remove(this.floor);
 		this.pcContainer = null;
 
 		for (var p = 0; p < this.pieces.length; p++) {

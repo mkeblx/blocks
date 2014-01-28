@@ -1,5 +1,5 @@
 
-// THREEx.KeyboardState.js keep the current state of the keyboard.
+// INPUT.KeyboardState.js keep the current state of the keyboard.
 // It is possible to query it at any time. No need of an event.
 // This is particularly convenient in loop driven case, like in
 // 3D demos or games.
@@ -8,7 +8,7 @@
 //
 // **Step 1**: Create the object
 //
-// ```var keyboard	= new THREEx.KeyboardState();```
+// ```var keyboard	= new INPUT.KeyboardState();```
 //
 // **Step 2**: Query the keyboard state
 //
@@ -26,8 +26,7 @@
 // # Code
 //
 
-/** @namespace */
-var THREEx = THREEx || {};
+var INPUT = INPUT || {};
 
 /**
  * - NOTE: it would be quite easy to push event-driven too
@@ -35,10 +34,11 @@ var THREEx = THREEx || {};
  *   - in this._onkeyChange, generate a string from the DOM event
  *   - use this as event name
  */
-THREEx.KeyboardState = function() {
+INPUT.KeyboardState = function() {
     // to store the current state
     this.keyCodes = {};
     this.modifiers = {};
+    this.lastKeyChecked = null;
 
     // create callback to bind/unbind keyboard events
     var self = this;
@@ -54,17 +54,18 @@ THREEx.KeyboardState = function() {
     document.addEventListener("keyup", this._onKeyUp, false);
 }
 
+
 /**
  * To stop listening of the keyboard events
  */
-THREEx.KeyboardState.prototype.destroy = function() {
+INPUT.KeyboardState.prototype.destroy = function() {
     // unbind keyEvents
     document.removeEventListener("keydown", this._onKeyDown, false);
     document.removeEventListener("keyup", this._onKeyUp, false);
 }
 
-THREEx.KeyboardState.MODIFIERS = ['shift', 'ctrl', 'alt', 'meta'];
-THREEx.KeyboardState.ALIAS = {
+INPUT.KeyboardState.MODIFIERS = ['shift', 'ctrl', 'alt', 'meta'];
+INPUT.KeyboardState.ALIAS = {
     'left': 37,
     'up': 38,
     'right': 39,
@@ -78,12 +79,29 @@ THREEx.KeyboardState.ALIAS = {
 /**
  * to process the keyboard dom event
  */
-THREEx.KeyboardState.prototype._onKeyChange = function(event, pressed) {
+INPUT.KeyboardState.prototype._onKeyChange = function(event, pressed) {
     // log to debug
     //console.log("onKeyChange", event, pressed, event.keyCode, event.shiftKey, event.ctrlKey, event.altKey, event.metaKey)
-
-    // update this.keyCodes
     var keyCode = event.keyCode;
+
+    console.log('key'+((pressed)?'down':'up') + ': ' + keyCode);
+
+    //clear last on keyup
+    if (!pressed && this.lastKeyChecked) {
+        console.log('key up with lastkeychecked present');
+        //convert lastKey string to num
+        var lastKeyCheckedCode;
+        if (Object.keys(INPUT.KeyboardState.ALIAS).indexOf(this.lastKeyChecked) != -1) {
+            lastKeyCheckedCode = INPUT.KeyboardState.ALIAS[this.lastKeyChecked];
+        } else {
+            lastKeyCheckedCode = this.lastKeyChecked.toUpperCase().charCodeAt(0);
+        }
+
+        console.log('comparing', keyCode, this.lastKeyChecked, lastKeyCheckedCode);
+        if (lastKeyCheckedCode == keyCode)
+            this.lastKeyChecked = null;
+    }
+
     this.keyCodes[keyCode] = pressed;
 
     // update this.modifiers
@@ -99,19 +117,37 @@ THREEx.KeyboardState.prototype._onKeyChange = function(event, pressed) {
  * @param {String} keyDesc the description of the key. format : modifiers+key e.g shift+A
  * @returns {Boolean} true if the key is pressed, false otherwise
  */
-THREEx.KeyboardState.prototype.pressed = function(keyDesc) {
+INPUT.KeyboardState.prototype.pressed = function(keyDesc, once) {
+
+    once = typeof once !== 'undefined' ? once : true;
+
     var keys = keyDesc.split("+");
     for (var i = 0; i < keys.length; i++) {
         var key = keys[i];
         var pressed;
-        if (THREEx.KeyboardState.MODIFIERS.indexOf(key) !== -1) {
+        if (INPUT.KeyboardState.MODIFIERS.indexOf(key) !== -1) {
             pressed = this.modifiers[key];
-        } else if (Object.keys(THREEx.KeyboardState.ALIAS).indexOf(key) != -1) {
-            pressed = this.keyCodes[THREEx.KeyboardState.ALIAS[key]];
+        } else if (Object.keys(INPUT.KeyboardState.ALIAS).indexOf(key) != -1) {
+            pressed = this.keyCodes[INPUT.KeyboardState.ALIAS[key]];
         } else {
-            pressed = this.keyCodes[key.toUpperCase().charCodeAt(0)]
+            pressed = this.keyCodes[key.toUpperCase().charCodeAt(0)];
         }
+        
         if (!pressed) return false;
     };
-    return true;
+
+
+    if (this.lastKeyChecked == keyDesc) {
+        //console.log('pressed', pressed, 'prev', this.lastKeyChecked, 'curr', keyDesc);
+
+        //this.lastKeyChecked = null;
+        console.log('returning false');
+        return false;
+    } else {
+
+        this.lastKeyChecked = keyDesc;
+        console.log('pressed', pressed, 'prev', this.lastKeyChecked, 'curr', keyDesc);
+
+        return true;
+    }
 } 

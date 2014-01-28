@@ -39,10 +39,10 @@ Math.deg2rad_h = Math.deg2rad/2;
 
 
 var isMouseDown = false;
-var isShiftDown = false, isCtrlDown = false, isAltDown = false;
 var onMouseDownTheta;
 var onMouseDownPhi;
 var onMouseDownPosition = new THREE.Vector2();
+
 var radious = 8000,
 	theta = 45, onMouseDownTheta = 45,
 	phi = 60, onMouseDownPhi = 60;
@@ -259,10 +259,12 @@ function setCameraPosition() {
 
 function setupEvents()
 {
-	$(document).on('keydown', onKeyDown);
-	$(document).on('keyup', onKeyUp);
+	window.keyboard = new INPUT.KeyboardState();
 
-	var state = new THREEx.KeyboardState();
+	//$(document).on('keydown', onKeyDown);
+	//$(document).on('keyup', onKeyUp);
+
+	setInterval(inputHandler, 1000/30);
 
 	$(document).on('mousemove',  onDocumentMouseMove);
 	$(document).on('mousedown',  onDocumentMouseDown);
@@ -271,7 +273,7 @@ function setupEvents()
 	document.addEventListener( 'mousewheel', onDocumentMouseWheel, false );
 	//$(document).on('mousewheel', onDocumentMouseWheel); // might need plugin to x-handle
 
-	$(window).on('resize', _.throttle(onWindowResize, 1000/20));
+	$(window).on('resize', _.throttle(onWindowResize, 1000/10));
 
 	$('#restart-level').on('click', function(){
 		game.resetLevel();
@@ -344,46 +346,25 @@ function onDocumentMouseWheel(event) {
 	render();
 }
 
-function onKeyDown(ev) {
+function inputHandler() {
 
 	var pPos = game.player;
 
-	var code = ev.keyCode;
-
-	if (code === KEYS.SHIFT) {
-		isShiftDown = true;
-	}
-	if (code === KEYS.CTRL) {
-		isCtrlDown = true;
-	} 
-
-	if (code == KEYS.LEFT) {
+	if (keyboard.pressed('left')) {
 		pPos.move(Grid.DIRS.LEFT);
-	} else if (code == KEYS.DOWN) {
+	} else if (keyboard.pressed('down')) {
 		pPos.move(Grid.DIRS.DOWN);
-	} else if (code == KEYS.RIGHT) {
+	} else if (keyboard.pressed('right')) {
 		pPos.move(Grid.DIRS.RIGHT);
-	} else if (code == KEYS.UP) {
+	} else if (keyboard.pressed('up')) {
 		pPos.move(Grid.DIRS.UP);
 	}
 
-	if (code == KEYS.R) // r => restart
+	if (keyboard.pressed('r'))
 		game.resetLevel();
 
-	if (code == KEYS.D)
+	if (keyboard.pressed('d'))
 		config.debug = !config.debug;
-}
-
-function onKeyUp(ev) {
-	var code = ev.keyCode;
-
-	if (code === KEYS.SHIFT) {
-		isShiftDown = false;
-	}
-	if (code === KEYS.CTRL) {
-		isCtrlDown = false;
-	}
-
 }
 
 });
