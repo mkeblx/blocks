@@ -8,7 +8,6 @@ var Grid = Class.extend({
 		this.cols = cols;
 		this.pieces = [];
 		this.pcContainer;
-		this.floor;
 
 		this.matrix = []; //rows=>cols
 
@@ -152,31 +151,14 @@ var Grid = Class.extend({
 		}
 
 		var material = new THREE.LineBasicMaterial({
-			color: 0xaaaaaa,
-			linewidth: 3,
+			color: 0xdddddd,
+			linewidth: 2,
 			transparent: false });
 
 		var line = new THREE.Line(geometry, material);
 		line.type = THREE.LinePieces;
 		scene.add(line);
 		this.el = line;
-
-		var color = BG_COLOR;
-
-		var floorMaterial = new THREE.MeshLambertMaterial({
-			color: color,
-			transparent: true,
-			opacity: 0.6,
-			side: THREE.DoubleSide });
-
-		var floorGeometry = new THREE.CircleGeometry( gridSize*(this.cols+100), 20, 0, Math.PI * 2 );
-
-		var floor = new THREE.Mesh(floorGeometry, floorMaterial);
-		this.floor = floor;
-		floor.rotation.x = 90*Math.deg2rad;
-		floor.receiveShadow = true;
-
-		scene.add(floor);
 
 		this.drawPieces();
 	},
@@ -192,7 +174,6 @@ var Grid = Class.extend({
 
 	remove: function() {
 		scene.remove(this.el);
-		scene.remove(this.floor);
 		this.pcContainer = null;
 
 		for (var p = 0; p < this.pieces.length; p++) {

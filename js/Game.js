@@ -24,6 +24,8 @@ var Game = Class.extend({
 
 		this.time = 0;
 		this.timer = null;
+
+		this.draw();
 	},
 
 	startLevel: function(levelNum)
@@ -120,8 +122,20 @@ var Game = Class.extend({
 	},
 
 	draw: function() {
-		//draw grid
+		var color = BG_COLOR;
 
+		var floorMaterial = new THREE.MeshLambertMaterial({
+			color: color,
+			side: THREE.DoubleSide });
+
+		var floorGeometry = new THREE.CircleGeometry( this.gridSize*200, 20, 0, Math.PI * 2 );
+
+		var floor = new THREE.Mesh(floorGeometry, floorMaterial);
+		floor.rotation.x = 90*Math.deg2rad;
+		floor.position.y = -1;
+		floor.receiveShadow = true;
+
+		scene.add(floor);
 	}
 
 });

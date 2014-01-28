@@ -17,8 +17,10 @@ module.exports = function(grunt) {
 			libs: {
 				src: [
 					'js/libs/json2.min.js',
+					'js/libs/console.js',
 					'js/libs/jquery.min.js',
 					'js/libs/lodash.min.js',
+					'js/libs/tween.min.js',
 					'js/libs/three.min.js',
 					'js/libs/shaders/CopyShader.js',
 					'js/libs/shaders/VignetteShader.js',
@@ -30,8 +32,7 @@ module.exports = function(grunt) {
 					'js/libs/input.keyboard.js',
 					'js/libs/Stats.js',
 					'js/libs/Detector.js',
-					'js/libs/dat.gui.min.js',
-					'js/libs/tween.min.js'],
+					'js/libs/dat.gui.min.js'],
 				dest: 'js/libs/libs.js'
 			}
 		},
