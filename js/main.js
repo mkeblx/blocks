@@ -143,6 +143,8 @@ function init() {
 	animate();
 
 	window.game = new Game();
+
+	$(window).on('resize', _.throttle(onWindowResize, 1000/10));
 }
 
 
@@ -176,7 +178,6 @@ function setupPostprocessing() {
 	var rp = new THREE.RenderPass( scene, camera );
 
 	composer.addPass( rp );
-
 
 	var vignettePass = new THREE.ShaderPass( THREE.VignetteShader );
 	vignettePass.uniforms[ "darkness" ].value = 0.9;
@@ -273,8 +274,6 @@ function setupEvents()
 	document.addEventListener( 'mousewheel', onDocumentMouseWheel, false );
 	//$(document).on('mousewheel', onDocumentMouseWheel); // might need plugin to x-handle
 
-	$(window).on('resize', _.throttle(onWindowResize, 1000/10));
-
 	$('#restart-level').on('click', function(){
 		game.resetLevel();
 	});
@@ -291,6 +290,8 @@ function onWindowResize(event) {
 
 	camera.aspect = window.innerWidth / window.innerHeight;
 	camera.updateProjectionMatrix();
+
+	setupPostprocessing();
 }
 
 function onDocumentMouseDown(event) {

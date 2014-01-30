@@ -5,8 +5,9 @@ var Player = require('Player'),
     LevelGenerator = require('LevelGenerator');
 
 var Game = Class.extend({
-	init: function(settings){
 
+	init: function(settings)
+	{
 		this.gridSize = 100;
 
 		this.currLevel = 0;
@@ -15,6 +16,12 @@ var Game = Class.extend({
 
 		this.numLevels = window.levelData.levels.length;
 
+		this.setup();
+	},
+
+
+	setup: function()
+	{
 		//load levels
 		for (var i = 0; i < this.numLevels; i++) {
 			this.levels.push(new Level(window.levelData.levels[i]));
@@ -121,7 +128,8 @@ var Game = Class.extend({
 		$('#timer').html(formatTime);
 	},
 
-	draw: function() {
+	draw: function()
+	{
 		var color = BG_COLOR;
 
 		var floorMaterial = new THREE.MeshLambertMaterial({
