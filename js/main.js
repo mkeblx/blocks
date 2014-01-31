@@ -291,7 +291,8 @@ function onWindowResize(event) {
 	camera.aspect = window.innerWidth / window.innerHeight;
 	camera.updateProjectionMatrix();
 
-	setupPostprocessing();
+	composer.reset();
+	//setupPostprocessing();
 }
 
 function onDocumentMouseDown(event) {

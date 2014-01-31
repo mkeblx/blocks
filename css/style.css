@@ -114,12 +114,23 @@ a:visited {
   background-color: rgba(255, 255, 255, 0.4);
   background: -webkit-radial-gradient(70% 30%, farthest-corner, white 30%, #555555 70%);
   text-align: center;
-  border-radius: 200px;
+  border-radius: 500%;
   padding-top: 165px;
   margin-left: -200px;
   margin-top: -200px;
+  -moz-transition: -moz-transform 0.6s ease-in-out;
+  -ms-transition: -ms-transform 0.6s ease-in-out;
+  -webkit-transition: -webkit-transform 0.6s ease-in-out;
+  -o-transition: -o-transform 0.6s ease-in-out;
+  transition: transform 0.6s ease-in-out;
 }
-/* line 61, sass/style.scss */
+/* line 67, sass/style.scss */
+#menu:hover {
+  -webkit-transform: scale(1.1);
+  transform: scale(1.1);
+  cursor: default;
+}
+/* line 73, sass/style.scss */
 #menu h2 {
   margin-top: -10px;
   margin-bottom: 10px;
@@ -128,14 +139,14 @@ a:visited {
   font-weight: 100;
   color: rgba(0, 0, 0, 0.5);
 }
-/* line 70, sass/style.scss */
+/* line 82, sass/style.scss */
 #menu sup {
   font-size: 18px;
   vertical-align: 40%;
   font-weight: 300;
   padding-left: 2px;
 }
-/* line 78, sass/style.scss */
+/* line 90, sass/style.scss */
 #menu #start {
   margin-top: 10px;
   width: 60px;
@@ -148,7 +159,7 @@ a:visited {
   color: #333;
 }
 
-/* line 91, sass/style.scss */
+/* line 103, sass/style.scss */
 #sidebar {
   position: absolute;
   right: 10px;
@@ -159,7 +170,7 @@ a:visited {
   border: 0px solid #fff;
   width: 300px;
 }
-/* line 103, sass/style.scss */
+/* line 115, sass/style.scss */
 #sidebar h1 {
   font-size: 26px;
   line-height: 26px;
@@ -167,33 +178,33 @@ a:visited {
   font-weight: 100;
   margin-top: -6px;
 }
-/* line 111, sass/style.scss */
+/* line 123, sass/style.scss */
 #sidebar h2 {
   font-size: 20px;
   font-weight: 100;
 }
-/* line 116, sass/style.scss */
+/* line 128, sass/style.scss */
 #sidebar sup {
   font-size: 12px;
   font-weight: 300;
   vertical-align: 60%;
   padding-left: 2px;
 }
-/* line 124, sass/style.scss */
+/* line 136, sass/style.scss */
 #sidebar #lvl {
   margin-top: 10px;
 }
-/* line 131, sass/style.scss */
+/* line 143, sass/style.scss */
 #sidebar #lvl #timer {
   float: right;
 }
-/* line 140, sass/style.scss */
+/* line 152, sass/style.scss */
 #sidebar #results {
   margin-top: 10px;
   max-height: 500px;
   overflow-y: scroll;
 }
-/* line 146, sass/style.scss */
+/* line 158, sass/style.scss */
 #sidebar #results > div {
   float: left;
   width: 50px;
@@ -203,11 +214,11 @@ a:visited {
   border: 1px solid #666;
   opacity: 0.8;
 }
-/* line 155, sass/style.scss */
+/* line 167, sass/style.scss */
 #sidebar #results > div:nth-child(5n) {
   margin-right: 0px;
 }
-/* line 159, sass/style.scss */
+/* line 171, sass/style.scss */
 #sidebar #results > div .lvl {
   display: block;
   font-size: 24px;
@@ -216,7 +227,7 @@ a:visited {
   text-align: center;
   margin-bottom: 4px;
 }
-/* line 168, sass/style.scss */
+/* line 180, sass/style.scss */
 #sidebar #results > div .time {
   display: block;
   text-align: center;
@@ -224,7 +235,7 @@ a:visited {
   line-height: 12px;
   font-weight: 400;
 }
-/* line 179, sass/style.scss */
+/* line 191, sass/style.scss */
 #sidebar #credits {
   margin-top: 10px;
   font-size: 13px;
@@ -232,7 +243,7 @@ a:visited {
   font-weight: 300;
 }
 
-/* line 187, sass/style.scss */
+/* line 199, sass/style.scss */
 #dat-gui-container {
   position: absolute;
   left: 100px;
@@ -240,7 +251,7 @@ a:visited {
 }
 
 /* forms/buttons */
-/* line 195, sass/style.scss */
+/* line 207, sass/style.scss */
 .btn {
   display: inline-block;
   padding: 6px;
@@ -250,42 +261,42 @@ a:visited {
   transition: background-color 0.15s linear;
 }
 
-/* line 204, sass/style.scss */
+/* line 216, sass/style.scss */
 .btn:hover {
   cursor: pointer;
   background-color: rgba(0, 0, 0, 0.3);
 }
 
 /* misc */
-/* line 211, sass/style.scss */
+/* line 223, sass/style.scss */
 .centered {
   position: fixed;
   top: 50%;
   left: 50%;
 }
 
-/* line 217, sass/style.scss */
+/* line 229, sass/style.scss */
 .right {
   float: right;
 }
 
-/* line 221, sass/style.scss */
+/* line 233, sass/style.scss */
 .left {
   float: left;
 }
 
-/* line 225, sass/style.scss */
+/* line 237, sass/style.scss */
 .hide {
   display: none;
 }
 
-/* line 229, sass/style.scss */
+/* line 241, sass/style.scss */
 .show {
   display: block;
 }
 
 /* stats */
-/* line 235, sass/style.scss */
+/* line 247, sass/style.scss */
 #stats {
   position: absolute;
   left: 10px !important;
@@ -293,13 +304,13 @@ a:visited {
   opacity: 1.0;
 }
 
-/* line 242, sass/style.scss */
+/* line 254, sass/style.scss */
 #stats #fps {
   padding: 1px !important;
   background-color: rgba(0, 0, 0, 0.2) !important;
   opacity: 0.8;
 }
-/* line 247, sass/style.scss */
+/* line 259, sass/style.scss */
 #stats #fps #fpsText {
   left: 1px;
   color: #fff !important;
@@ -307,7 +318,7 @@ a:visited {
   font-family: 'Roboto', monospace;
   font-weight: 300 !important;
 }
-/* line 255, sass/style.scss */
+/* line 267, sass/style.scss */
 #stats #fps #fpsGraph {
   left: 1px;
   padding: 0px;
@@ -315,20 +326,20 @@ a:visited {
   background-color: rgba(255, 255, 255, 0.7) !important;
   overflow: hidden;
 }
-/* line 262, sass/style.scss */
+/* line 274, sass/style.scss */
 #stats #fps #fpsGraph span {
   border-bottom: 1px solid !important;
   border-color: rgba(255, 255, 255, 0.9) !important;
   background-color: rgba(0, 0, 0, 0.3) !important;
 }
 
-/* line 270, sass/style.scss */
+/* line 282, sass/style.scss */
 #stats #ms {
   padding: 1px !important;
   background-color: rgba(0, 0, 0, 0.2) !important;
   opacity: 0.8;
 }
-/* line 275, sass/style.scss */
+/* line 287, sass/style.scss */
 #stats #ms #msText {
   left: 1px;
   color: #fff !important;
@@ -336,7 +347,7 @@ a:visited {
   font-family: 'Roboto', monospace;
   font-weight: 300 !important;
 }
-/* line 283, sass/style.scss */
+/* line 295, sass/style.scss */
 #stats #ms #msGraph {
   left: 1px;
   padding: 0px;
@@ -344,7 +355,7 @@ a:visited {
   background-color: rgba(255, 255, 255, 0.7) !important;
   overflow: hidden;
 }
-/* line 290, sass/style.scss */
+/* line 302, sass/style.scss */
 #stats #ms #msGraph span {
   border-bottom: 1px solid !important;
   border-color: rgba(255, 255, 255, 0.9) !important;
