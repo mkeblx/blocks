@@ -5,6 +5,7 @@ var GPoint = require('GPoint');
 var Player = Class.extend({
 	init: function(name){
 		this.name = name;
+		this.el = null;
 	},
 
 	setStartPosition: function(pos)
@@ -70,19 +71,18 @@ var Player = Class.extend({
 
 		if (endPt.equals(this.pos)) {
 
-			var deltaT = 400;
-
 			var plr = this.el;
 
 			var tween = new TWEEN.Tween({ s: 1 })
-				.to({ s: 0.1 }, deltaT)
+				.to({ s: 0.1 }, 400)
 				.onUpdate(function(){
 					plr.scale.set(this.s, this.s, this.s);
 				})
 				.onComplete(
-					function(){ game.gotoNextLevel(true); }
-					)
-				.easing(TWEEN.Easing.Cubic.Out)
+					function(){
+						game.gotoNextLevel(true);
+					})
+				.easing(TWEEN.Easing.Back.In)
 				.delay(400)
 				.start();
 		}
@@ -146,6 +146,10 @@ var Player = Class.extend({
 		this.el = mesh;
 	},
 
+	hide: function() {
+		this.el.scale.set(0);
+	},
+
 	scale: function(from, to, time, delay) {
 		var plr = this.el;
 
@@ -154,7 +158,7 @@ var Player = Class.extend({
 			.onUpdate(function(){
 				plr.scale.set(this.s, this.s, this.s);
 			})
-			.easing(TWEEN.Easing.Cubic.Out)
+			.easing(TWEEN.Easing.Back.Out)
 			.delay(delay)
 			.start();
 	},

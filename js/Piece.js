@@ -105,16 +105,24 @@ var Piece = Class.extend({
 		container.position.x = d + this.pt.x*gridSize;		
 		container.position.z = d + this.pt.y*gridSize;
 
-		var endPos = this.len * gridSize/2;
 		p.position.y = -5000;
 
 		p.castShadow = true;
 		p.receiveShadow = true;
 
 		container.add(p);
+		this.el = p;
+		this.c = container;
+		scene.add(container);
 
+		this.slide(n, false);
+	},
+
+	slide: function(n, out) {
 		var deltaT = 750;
 
+		var endPos = this.len * game.gridSize/2;
+		var p = this.el;
 		var at = {s: -endPos}, target = {s: endPos};
 
 		var tween = new TWEEN.Tween(at)
@@ -125,10 +133,6 @@ var Piece = Class.extend({
 			.delay(100*n)
 			.easing(TWEEN.Easing.Cubic.Out)
 			.start();
-
-		this.el = p;
-		this.c = container;
-		scene.add(container);
 	},
 
 	remove: function() {

@@ -125,7 +125,7 @@ a:visited {
   transition: transform 0.6s ease-in-out;
 }
 /* line 67, sass/style.scss */
-#menu:hover {
+#menu.active:hover {
   -webkit-transform: scale(1.1);
   transform: scale(1.1);
   cursor: default;
@@ -295,8 +295,14 @@ a:visited {
   display: block;
 }
 
+/* line 245, sass/style.scss */
+.scale-out {
+  -webkit-transform: scale(0);
+  transform: scale(0);
+}
+
 /* stats */
-/* line 247, sass/style.scss */
+/* line 252, sass/style.scss */
 #stats {
   position: absolute;
   left: 10px !important;
@@ -304,13 +310,13 @@ a:visited {
   opacity: 1.0;
 }
 
-/* line 254, sass/style.scss */
+/* line 259, sass/style.scss */
 #stats #fps {
   padding: 1px !important;
   background-color: rgba(0, 0, 0, 0.2) !important;
   opacity: 0.8;
 }
-/* line 259, sass/style.scss */
+/* line 264, sass/style.scss */
 #stats #fps #fpsText {
   left: 1px;
   color: #fff !important;
@@ -318,7 +324,7 @@ a:visited {
   font-family: 'Roboto', monospace;
   font-weight: 300 !important;
 }
-/* line 267, sass/style.scss */
+/* line 272, sass/style.scss */
 #stats #fps #fpsGraph {
   left: 1px;
   padding: 0px;
@@ -326,20 +332,20 @@ a:visited {
   background-color: rgba(255, 255, 255, 0.7) !important;
   overflow: hidden;
 }
-/* line 274, sass/style.scss */
+/* line 279, sass/style.scss */
 #stats #fps #fpsGraph span {
   border-bottom: 1px solid !important;
   border-color: rgba(255, 255, 255, 0.9) !important;
   background-color: rgba(0, 0, 0, 0.3) !important;
 }
 
-/* line 282, sass/style.scss */
+/* line 287, sass/style.scss */
 #stats #ms {
   padding: 1px !important;
   background-color: rgba(0, 0, 0, 0.2) !important;
   opacity: 0.8;
 }
-/* line 287, sass/style.scss */
+/* line 292, sass/style.scss */
 #stats #ms #msText {
   left: 1px;
   color: #fff !important;
@@ -347,7 +353,7 @@ a:visited {
   font-family: 'Roboto', monospace;
   font-weight: 300 !important;
 }
-/* line 295, sass/style.scss */
+/* line 300, sass/style.scss */
 #stats #ms #msGraph {
   left: 1px;
   padding: 0px;
@@ -355,7 +361,7 @@ a:visited {
   background-color: rgba(255, 255, 255, 0.7) !important;
   overflow: hidden;
 }
-/* line 302, sass/style.scss */
+/* line 307, sass/style.scss */
 #stats #ms #msGraph span {
   border-bottom: 1px solid !important;
   border-color: rgba(255, 255, 255, 0.9) !important;

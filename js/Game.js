@@ -51,6 +51,7 @@ var Game = Class.extend({
 
 	resetLevel: function()
 	{
+		this.player.hide();
 		this.level.remove();
 
 		if (this.currLevel === this.levels.length)

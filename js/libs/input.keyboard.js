@@ -80,15 +80,10 @@ INPUT.KeyboardState.ALIAS = {
  * to process the keyboard dom event
  */
 INPUT.KeyboardState.prototype._onKeyChange = function(event, pressed) {
-    // log to debug
-    //console.log("onKeyChange", event, pressed, event.keyCode, event.shiftKey, event.ctrlKey, event.altKey, event.metaKey)
     var keyCode = event.keyCode;
-
-    console.log('key'+((pressed)?'down':'up') + ': ' + keyCode);
 
     //clear last on keyup
     if (!pressed && this.lastKeyChecked) {
-        console.log('key up with lastkeychecked present');
         //convert lastKey string to num
         var lastKeyCheckedCode;
         if (Object.keys(INPUT.KeyboardState.ALIAS).indexOf(this.lastKeyChecked) != -1) {
@@ -97,7 +92,6 @@ INPUT.KeyboardState.prototype._onKeyChange = function(event, pressed) {
             lastKeyCheckedCode = this.lastKeyChecked.toUpperCase().charCodeAt(0);
         }
 
-        console.log('comparing', keyCode, this.lastKeyChecked, lastKeyCheckedCode);
         if (lastKeyCheckedCode == keyCode)
             this.lastKeyChecked = null;
     }
@@ -136,18 +130,10 @@ INPUT.KeyboardState.prototype.pressed = function(keyDesc, once) {
         if (!pressed) return false;
     };
 
-
     if (this.lastKeyChecked == keyDesc) {
-        //console.log('pressed', pressed, 'prev', this.lastKeyChecked, 'curr', keyDesc);
-
-        //this.lastKeyChecked = null;
-        console.log('returning false');
         return false;
     } else {
-
         this.lastKeyChecked = keyDesc;
-        console.log('pressed', pressed, 'prev', this.lastKeyChecked, 'curr', keyDesc);
-
         return true;
     }
 } 

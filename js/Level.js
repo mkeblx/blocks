@@ -68,6 +68,9 @@ var Level = Class.extend({
  
 	},
 
+	slideOut: function(callback) {
+	},
+
 	remove: function(){
 		this.grid.remove();
 	},

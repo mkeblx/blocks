@@ -13,7 +13,6 @@ var KEYS = require('Keys');
 
 window.config = {
 	debug: 0,
-	autostart: 0,
 	postprocess: 1,
 	animate: {
 		player: 1,
@@ -137,9 +136,6 @@ function init() {
 
 	$(document).on('click', '#start', startGame);
 
-	if (config.autostart)
-		startGame();
-
 	animate();
 
 	window.game = new Game();
@@ -227,27 +223,35 @@ function getData() {
 
 function startGame() {
 	$(document).off('keydown');
-	$('#menu').hide();
-	$('#start').attr('id','#restart').html('restart');
+	//$('#menu').fadeOut();
 
-	var deltaT = 1400;
+	$('#menu')
+		.removeClass('active')
+		.addClass('scale-out');
 
-	//zoom in
-	var at = {r: radious};
-	var target = {r: 1600};
-	var zoomT = new TWEEN.Tween(at)
-		.to(target, deltaT)
-		.onUpdate(function(){
-			radious = this.r;
-			setCameraPosition();
-		})
-		.easing(TWEEN.Easing.Cubic.Out);
+	setTimeout(function(){
+		$('#menu').hide();
 
-	zoomT.start();
+		var deltaT = 1400;
 
-	game.startLevel(0);
+		//zoom in
+		var at = {r: radious};
+		var target = {r: 1600};
+		var zoomT = new TWEEN.Tween(at)
+			.to(target, deltaT)
+			.onUpdate(function(){
+				radious = this.r;
+				setCameraPosition();
+			})
+			.easing(TWEEN.Easing.Cubic.Out);
 
-	setupEvents();
+		zoomT.start();
+
+		game.startLevel(0);
+
+		setupEvents();
+
+	}, 600);
 }
 
 function setCameraPosition() {
