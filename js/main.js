@@ -356,13 +356,13 @@ function inputHandler() {
 
 	var pPos = game.player;
 
-	if (keyboard.pressed('left')) {
+	if (keyboard.pressed('left') || keyboard.pressed('a')) {
 		pPos.move(Grid.DIRS.LEFT);
-	} else if (keyboard.pressed('down')) {
+	} else if (keyboard.pressed('down') || keyboard.pressed('s')) {
 		pPos.move(Grid.DIRS.DOWN);
-	} else if (keyboard.pressed('right')) {
+	} else if (keyboard.pressed('right') || keyboard.pressed('d')) {
 		pPos.move(Grid.DIRS.RIGHT);
-	} else if (keyboard.pressed('up')) {
+	} else if (keyboard.pressed('up') || keyboard.pressed('w')) {
 		pPos.move(Grid.DIRS.UP);
 	}
 

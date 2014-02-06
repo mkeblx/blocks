@@ -53,7 +53,7 @@ $width: 400px;
 	text-align: center;
 	border-radius: 500%;
 
-	padding-top: 165px;
+	padding-top: 110px;
 
 	margin-left: -($width/2);
 	margin-top: -($width/2);
@@ -76,7 +76,21 @@ $width: 400px;
 		font-size: 52px;
 		line-height: 52px;
 		font-weight: 100;
-		color: rgba(0,0,0,0.5);
+		color: rgba(0,0,0,0.55);
+	}
+
+	#instructions {
+		color: rgba(0,0,0,0.55);
+		margin: 18px 0px;
+		font-size: 16px;
+		line-height: 22px;
+		font-weight: 300;
+
+		span {
+			font-size: 20px;
+			margin-bottom: 14px;
+			display: inline-block;
+		}
 	}
 
 	sup {
