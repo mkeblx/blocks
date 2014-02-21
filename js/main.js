@@ -156,6 +156,13 @@ function setupLights() {
 	dl.castShadow = true;
 	dl.shadowDarkness = 0.2;
 
+	dl.shadowCameraLeft = -450;
+	dl.shadowCameraRight = 450;
+	dl.shadowCameraTop = 600;
+	dl.shadowCameraBottom = -256;
+
+	dl.shadowMapHeight = dl.shadowMapWidth = 1024;
+
 	if (config.debug) dl.shadowCameraVisible = true;
 
 	scene.add(dl);

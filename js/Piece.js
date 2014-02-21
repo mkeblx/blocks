@@ -86,7 +86,7 @@ var Piece = Class.extend({
 	draw: function(board, endPiece, n){
 		var gridSize = game.gridSize;
 
-		var space = 0.1;
+		var space = 0.0;
 
 		var geometry = new THREE.CubeGeometry(gridSize-space, gridSize*this.len, gridSize-space);
 		var color = (endPiece) ? 0x666666 : Piece.COLORS[this.len-1];
@@ -123,7 +123,7 @@ var Piece = Class.extend({
 
 		var endPos = this.len * game.gridSize/2;
 		var p = this.el;
-		var at = {s: -endPos}, target = {s: endPos};
+		var at = {s: -endPos}, target = {s: endPos+1};
 
 		var tween = new TWEEN.Tween(at)
 			.to(target, deltaT)
