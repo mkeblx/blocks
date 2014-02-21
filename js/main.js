@@ -175,22 +175,18 @@ function setupPostprocessing() {
 
 	composer.addPass( rp );
 
+	var effectFXAA = new THREE.ShaderPass(THREE.FXAAShader);
+	var width = window.innerWidth;
+	var height = window.innerHeight;
+	effectFXAA.uniforms['resolution'].value.set(1 / width, 1 / height);
+	composer.addPass(effectFXAA);
+
 	var vignettePass = new THREE.ShaderPass( THREE.VignetteShader );
 	vignettePass.uniforms[ "darkness" ].value = 0.9;
 	vignettePass.uniforms[ "offset" ].value = 0.5;
 	vignettePass.renderToScreen = true;
 
 	composer.addPass( vignettePass );
-
-	return;
-
-	var dpr = 1;
-
-	var fxaa = new THREE.ShaderPass( THREE.FXAAShader );
-	fxaa.uniforms['resolution'].value.set(1 / (window.innerWidth * dpr), 1 / (window.innerHeight * dpr));
-	fxaa.renderToScreen = true;
-
-	composer.addPass( fxaa );
 }
 
 function animate() {
@@ -295,8 +291,8 @@ function onWindowResize(event) {
 	camera.aspect = window.innerWidth / window.innerHeight;
 	camera.updateProjectionMatrix();
 
-	composer.reset();
-	//setupPostprocessing();
+	//composer.reset();
+	setupPostprocessing();
 }
 
 function onDocumentMouseDown(event) {
