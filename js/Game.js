@@ -10,6 +10,8 @@ var Game = Class.extend({
 	{
 		this.gridSize = 100;
 
+		this.gameCompleted = false;
+
 		this.currLevel = 0;
 		this.levels = [];
 		this.level = null;
@@ -81,6 +83,10 @@ var Game = Class.extend({
 
 		var levelTime = $('#timer').html();
 
+		if (this.gameCompleted)
+			return false;
+
+
 		$('#results').append('<div><span class="lvl">'+this.currLevel+'</span><span class="time">'+levelTime+'</span></div>');
 
 		//reset stuff
@@ -98,10 +104,17 @@ var Game = Class.extend({
 	},
 
 	//completed all the levels
-	//ideas: do a credits roll or some cool animation stuff
 	gameComplete: function()
 	{
-		alert('You\'ve won! You must pay for more levels');
+		this.gameCompleted = true;
+
+		this.player.el.hide = true;
+
+		$('#menu').show().addClass('scale-in');
+		$('#menu').find('.btn').remove();
+		$('#menu #instructions').html('<h3>Game Complete!</h3>');
+
+		//alert('You\'ve won! You must pay for more levels');
 	},
 
 	startTimer: function()
@@ -141,7 +154,7 @@ var Game = Class.extend({
 
 		var floor = new THREE.Mesh(floorGeometry, floorMaterial);
 		floor.rotation.x = 90*Math.deg2rad;
-		floor.position.y = -1;
+		floor.position.y = -4;
 		floor.receiveShadow = true;
 
 		scene.add(floor);

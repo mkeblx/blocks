@@ -79,6 +79,13 @@ $width: 400px;
 		color: rgba(0,0,0,0.55);
 	}
 
+	h3 {
+		margin-top: 30px;
+		font-size: 42px;
+		line-height: 42px;
+		font-weight: 100;
+	}
+
 	#instructions {
 		color: rgba(0,0,0,0.55);
 		margin: 18px 0px;
@@ -259,6 +266,11 @@ $width: 400px;
 .scale-out {
 	-webkit-transform: scale(0.0);
 	transform: scale(0.0);
+}
+
+.scale-in {
+	-webkit-transform: scale(1.0);
+	transform: scale(0.0); 
 }
 
 /* stats */
