@@ -88,7 +88,7 @@ var Piece = Class.extend({
 
 		var space = 0.0;
 
-		var geometry = new THREE.CubeGeometry(gridSize-space, gridSize*this.len, gridSize-space);
+		var geometry = new THREE.BoxGeometry(gridSize-space, gridSize*this.len, gridSize-space);
 		var color = (endPiece) ? 0x666666 : Piece.COLORS[this.len-1];
 		var material = new THREE.MeshLambertMaterial({
 			color: color,

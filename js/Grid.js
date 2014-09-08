@@ -168,7 +168,7 @@ var Grid = Class.extend({
 		for (var p = 0; p < this.pieces.length; p++) {
 			var pc = this.pieces[p];
 			var pcObj = pc.draw(this.board, (p === this.pieces.length-1)?true:false, p);
-			this.pcContainer.add(pcObj);
+			//this.pcContainer.add(pcObj);
 		}
 	},
 
