@@ -22,6 +22,8 @@ module.exports = function(grunt) {
 					'js/libs/lodash.min.js',
 					'js/libs/tween.min.js',
 					'js/libs/three.min.js',
+					'js/libs/VREffect.js',
+					'js/libs/VRControls.js',
 					'js/libs/shaders/CopyShader.js',
 					'js/libs/shaders/VignetteShader.js',
 					'js/libs/shaders/FXAAShader.js',

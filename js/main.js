@@ -14,6 +14,7 @@ var KEYS = require('Keys');
 window.config = {
 	debug: 0,
 	postprocess: 1,
+	mode: 'VR',
 	animate: {
 		player: 1,
 		piece: 1,
@@ -22,10 +23,14 @@ window.config = {
 	levelsUrl: 'data/levels.json'
 };
 window.BG_COLOR = 0xcccccc;
+window.mode = !!navigator.getVRDevices && config.mode == 'VR' ? 'VR' : 'obsolete';
 
 var container, stats = { update: function(){} }, gui;
 
 var camera, renderer, composer;
+
+var vrEffect;
+var vrControls;
 
 window.scene;
 
@@ -80,21 +85,8 @@ function init() {
 
 	scene.fog = new THREE.FogExp2( BG_COLOR, 0.0002 );
 
-	renderer = new THREE.WebGLRenderer({
-		antialias: true});
+	setupRendering();
 
-	renderer.shadowMapEnabled = true;
-	renderer.shadowMapSoft = true;
-	renderer.shadowMapWidth = 2048;
-	renderer.shadowMapHeight = 2048;
-	renderer.shadowMapType = THREE.PCFSoftShadowMap;
-
-	renderer.setClearColor(BG_COLOR, 0);
-	//renderer.setClearColor( 0x000000, 0 );
-
-	renderer.setSize(window.innerWidth, window.innerHeight);
-
-	container.appendChild(renderer.domElement);
 
 	if (config.debug) {
 		var axes = new THREE.AxisHelper(30);
@@ -106,7 +98,7 @@ function init() {
 		container.appendChild(stats.domElement);
 	}
 
-	if (config.postprocess)
+	if (config.postprocess && mode != 'VR')
 		setupPostprocessing();
 
 	if (config.debug) {
@@ -176,6 +168,36 @@ function setupLights() {
 	scene.add(directionalLight);
 }
 
+function setupRendering() {
+	renderer = new THREE.WebGLRenderer({
+		antialias: true});
+
+	renderer.shadowMapEnabled = true;
+	renderer.shadowMapSoft = true;
+	renderer.shadowMapWidth = 2048;
+	renderer.shadowMapHeight = 2048;
+	renderer.shadowMapType = THREE.PCFSoftShadowMap;
+
+	renderer.setClearColor(BG_COLOR, 0);
+	//renderer.setClearColor( 0x000000, 0 );
+
+	renderer.setSize(window.innerWidth, window.innerHeight);	
+
+	container.appendChild(renderer.domElement);
+
+	function VREffectLoaded(error) {
+		if (error) {
+			//fullScreenButton.innerHTML = error;
+			//fullScreenButton.classList.add('error');
+		}
+	}
+
+	if (mode == 'VR') {
+		vrEffect = new THREE.VREffect(renderer, VREffectLoaded);
+		vrControls = new THREE.VRControls(camera);
+	}
+}
+
 function setupPostprocessing() {
 	composer = new THREE.EffectComposer( renderer );
 	var rp = new THREE.RenderPass( scene, camera );
@@ -196,24 +218,39 @@ function setupPostprocessing() {
 	composer.addPass( vignettePass );
 }
 
-function animate() {
+function animate(t) {
 	requestAnimationFrame(animate);
 
-	TWEEN.update();
-	render();
+	TWEEN.update(t);
+	render(t);
 	stats.update();
 }
 
-function render() {
-	camera.lookAt(target);
+function render(t) {
+	if (config.postprocess && mode != 'VR') {
+		camera.lookAt(target);
+		composer.render();
+	} else {
+		if (mode == 'VR') {
+			var vrState = vrControls.getVRState();
+			var s = 700;
 
-	//renderer.setViewport( 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT );
-	//renderer.render(scene, camera);
+			var cPos = {x: 0, y: 700, z: 700};
+			var vrPos = (vrState) ? vrState.hmd.position : [0,0,0];
+			var pos = vrPos;
+			pos[0] = vrPos[0]*s + cPos.x;
+			pos[1] = vrPos[1]*s + cPos.y;
+			pos[2] = vrPos[2]*s + cPos.z;
 
-	//renderer.setViewport( 1, 200, 200, 200 );
-	//renderer.render( scene, topCamera );
+			camera.position.fromArray(pos);
 
-	config.postprocess ? composer.render() : renderer.render(scene, camera);
+			vrControls.update();
+			vrEffect.render(scene, camera);
+		} else {
+			camera.lookAt(target);
+			renderer.render(scene, camera);
+		}
+	}
 }
 
 function getData() {
@@ -225,6 +262,10 @@ function getData() {
 }
 
 function startGame() {
+	if (mode == 'VR') {
+		vrEffect.setFullScreen(true);
+	}
+
 	$(document).off('keydown');
 	//$('#menu').fadeOut();
 
@@ -259,27 +300,24 @@ function startGame() {
 
 function setCameraPosition() {
 	var a = Math.deg2rad_h;
-	camera.position.x = radious * Math.sin(theta * a) * Math.cos(phi * a);
-	camera.position.y = radious * Math.sin(phi * a );
-	camera.position.z = radious * Math.cos(theta * a) * Math.cos(phi * a);
+	
+	if (mode == 'VR') {
+		camera.position.set(0,700,700);
+	} else {
+		camera.position.x = radious * Math.sin(theta * a) * Math.cos(phi * a);
+		camera.position.y = radious * Math.sin(phi * a);
+		camera.position.z = radious * Math.cos(theta * a) * Math.cos(phi * a);
+	}
 }
 
 
-function setupEvents()
-{
+function setupEvents() {
 	window.keyboard = new INPUT.KeyboardState();
 
 	//$(document).on('keydown', onKeyDown);
 	//$(document).on('keyup', onKeyUp);
 
 	setInterval(inputHandler, 1000/30);
-
-	$(document).on('mousemove',  onDocumentMouseMove);
-	$(document).on('mousedown',  onDocumentMouseDown);
-	$(document).on('mouseup',    onDocumentMouseUp);
-
-	document.addEventListener( 'mousewheel', onDocumentMouseWheel, false );
-	//$(document).on('mousewheel', onDocumentMouseWheel); // might need plugin to x-handle
 
 	$('#restart-level').on('click', function(){
 		game.resetLevel();
@@ -290,6 +328,16 @@ function setupEvents()
 	$('#next-level').on('click', function(){
 		game.gotoNextLevel(true);
 	});
+
+	if (mode != 'VR') {
+		$(document).on('mousemove',  onDocumentMouseMove);
+		$(document).on('mousedown',  onDocumentMouseDown);
+		$(document).on('mouseup',    onDocumentMouseUp);
+
+		document.addEventListener( 'mousewheel', onDocumentMouseWheel, false );
+		//$(document).on('mousewheel', onDocumentMouseWheel); // might need plugin to x-handle
+	}
+
 }
 
 function onWindowResize(event) {
@@ -299,7 +347,8 @@ function onWindowResize(event) {
 	camera.updateProjectionMatrix();
 
 	//composer.reset();
-	setupPostprocessing();
+	if (mode != 'VR')
+		setupPostprocessing();
 }
 
 function onDocumentMouseDown(event) {
