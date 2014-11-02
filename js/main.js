@@ -25,7 +25,9 @@ window.config = {
 window.BG_COLOR = 0xcccccc;
 window.mode = !!navigator.getVRDevices && config.mode == 'VR' ? 'VR' : 'obsolete';
 
-var container, stats = { update: function(){} }, gui;
+var clock = new THREE.Clock();
+
+var container, stats, gui;
 
 var camera, renderer, composer;
 
@@ -218,22 +220,30 @@ function setupPostprocessing() {
 	composer.addPass( vignettePass );
 }
 
-function animate(t) {
+function animate() {
 	requestAnimationFrame(animate);
 
-	TWEEN.update(t);
-	render(t);
-	stats.update();
+	var dt = clock.getDelta();
+
+	update(dt);
+	render(dt);
 }
 
-function render(t) {
+function update(dt) {
+	TWEEN.update();
+
+	if (stats)
+		stats.update();
+}
+
+function render(dt) {
 	if (config.postprocess && mode != 'VR') {
 		camera.lookAt(target);
 		composer.render();
 	} else {
 		if (mode == 'VR') {
 			var vrState = vrControls.getVRState();
-			var s = 700;
+			var s = 1000;
 
 			var cPos = {x: 0, y: 700, z: 700};
 			var vrPos = (vrState) ? vrState.hmd.position : [0,0,0];
@@ -291,7 +301,7 @@ function startGame() {
 			game.startLevel(0);
 			setupEvents();		
 		})
-		.delay(2000);
+		.delay(600);
 
 	zoomT.start();
 }
@@ -418,6 +428,9 @@ function inputHandler() {
 
 	if (keyboard.pressed('r'))
 		game.resetLevel();
+
+	if (keyboard.pressed('z'))
+		vrEffect && vrControls._vrInput.zeroSensor();
 
 	if (keyboard.pressed('d'))
 		config.debug = !config.debug;
