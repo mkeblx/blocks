@@ -273,29 +273,27 @@ function startGame() {
 		.removeClass('active')
 		.addClass('scale-out');
 
-	setTimeout(function(){
-		$('#menu').hide();
+	$('#menu').hide();
 
-		var deltaT = 1400;
+	var deltaT = 1400;
 
-		//zoom in
-		var at = {r: radious};
-		var target = {r: 1600};
-		var zoomT = new TWEEN.Tween(at)
-			.to(target, deltaT)
-			.onUpdate(function(){
-				radious = this.r;
-				setCameraPosition();
-			})
-			.easing(TWEEN.Easing.Cubic.Out);
+	//zoom in
+	var at = {r: radious};
+	var target = {r: 1600};
+	var zoomT = new TWEEN.Tween(at)
+		.to(target, deltaT)
+		.easing(TWEEN.Easing.Cubic.Out)
+		.onUpdate(function(){
+			radious = this.r;
+			setCameraPosition();
+		})
+		.onComplete(function(){
+			game.startLevel(0);
+			setupEvents();		
+		})
+		.delay(2000);
 
-		zoomT.start();
-
-		game.startLevel(0);
-
-		setupEvents();
-
-	}, 600);
+	zoomT.start();
 }
 
 function setCameraPosition() {
