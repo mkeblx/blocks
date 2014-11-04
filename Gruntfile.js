@@ -16,8 +16,6 @@ module.exports = function(grunt) {
 			},
 			libs: {
 				src: [
-					'js/libs/json2.min.js',
-					'js/libs/console.js',
 					'js/libs/jquery.min.js',
 					'js/libs/lodash.min.js',
 					'js/libs/tween.min.js',
