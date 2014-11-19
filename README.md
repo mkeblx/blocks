@@ -3,7 +3,7 @@ blocks
 
 A puzzle game. Get to the gray cube.
 
-Alpha currently playable [here](http://blocks.quasi.co).
+Alpha currently playable [here](http://blocks.mkeblx.net).
 
 
 Roadmap
@@ -17,4 +17,5 @@ Roadmap
 * display of possible moves
 * shaders
 * automated level generation + difficulty quantification
-* v2...
+* VR mode
+* mobile: top view, touch support
