@@ -1,6 +1,7 @@
-node_modules
+/node_modules
 *.sass-cache*
 .DS_Store
 *.sublime-*
 .scssc
-js/ga.js
+/js/ga.js
+/js/dist/*

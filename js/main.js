@@ -9,7 +9,7 @@ window.Class = require('Class');
 
 var Game = require('Game');
 var Grid = require('Grid');
-var KEYS = require('Keys');
+//var KEYS = require('Keys');
 
 window.config = {
 	debug: 0,
@@ -123,7 +123,7 @@ function init() {
 	}
 
 	$(document).on('keydown', function(ev){
-		if (ev.keyCode === KEYS.ENTER) {
+		if (ev.keyCode === 13) {  // enter
 			startGame();
 		}
 	});
@@ -237,29 +237,25 @@ function update(dt) {
 }
 
 function render(dt) {
-	if (config.postprocess && mode != 'VR') {
-		camera.lookAt(target);
-		composer.render();
+	if (mode === 'VR') {
+		var vrState = vrControls.getVRState();
+		var s = 1000;
+
+		// TODO: clean this up: 1) put in update, 2) do like vr-tmpl
+		var cPos = {x: 0, y: 700, z: 700};
+		var vrPos = (vrState) ? vrState.hmd.position : [0,0,0];
+		var pos = vrPos;
+		pos[0] = vrPos[0]*s + cPos.x;
+		pos[1] = vrPos[1]*s + cPos.y;
+		pos[2] = vrPos[2]*s + cPos.z;
+
+		camera.position.fromArray(pos);
+
+		vrControls.update();
+		vrEffect.render(scene, camera);
 	} else {
-		if (mode == 'VR') {
-			var vrState = vrControls.getVRState();
-			var s = 1000;
-
-			var cPos = {x: 0, y: 700, z: 700};
-			var vrPos = (vrState) ? vrState.hmd.position : [0,0,0];
-			var pos = vrPos;
-			pos[0] = vrPos[0]*s + cPos.x;
-			pos[1] = vrPos[1]*s + cPos.y;
-			pos[2] = vrPos[2]*s + cPos.z;
-
-			camera.position.fromArray(pos);
-
-			vrControls.update();
-			vrEffect.render(scene, camera);
-		} else {
-			camera.lookAt(target);
-			renderer.render(scene, camera);
-		}
+		camera.lookAt(target);
+		(config.postprocess) ? composer.render() : renderer.render(scene, camera);
 	}
 }
 
@@ -320,12 +316,51 @@ function setCameraPosition() {
 
 
 function setupEvents() {
-	window.keyboard = new INPUT.KeyboardState();
+	key('r', function(){
+		game.resetLevel();
+	});
 
-	//$(document).on('keydown', onKeyDown);
-	//$(document).on('keyup', onKeyUp);
+	key('n', function(){
+		game.gotoNextLevel(true);
+	});
 
-	setInterval(inputHandler, 1000/30);
+	key('z', function(){
+		vrEffect && vrControls._vrInput.zeroSensor();
+	});
+
+	key('d', function(){
+		config.debug = !config.debug;
+	});
+
+	var pPos = game.player;
+	/*
+	NOTE: could wrap in for potential desired behavior
+	key('left,a, down,s, right,d, up,w', function(){
+		if (key.isPressed('left') || key.isPressed('a')) {
+			pPos.move(Grid.DIRS.LEFT);
+		} else if (key.isPressed('down') || key.isPressed('s')) {
+			pPos.move(Grid.DIRS.DOWN);
+		} else if (key.isPressed('right') || key.isPressed('d')) {
+			pPos.move(Grid.DIRS.RIGHT);
+		} else if (key.isPressed('up') || key.isPressed('w')) {
+			pPos.move(Grid.DIRS.UP);
+		}
+	});
+
+	*/
+	key('left, a', function(){
+		pPos.move(Grid.DIRS.LEFT);
+	});
+	key('down, s', function(){
+		pPos.move(Grid.DIRS.DOWN);
+	});
+	key('right, d', function(){
+		pPos.move(Grid.DIRS.RIGHT);
+	});
+	key('up, w', function(){
+		pPos.move(Grid.DIRS.UP);
+	});
+
 
 	$('#restart-level').on('click', function(){
 		game.resetLevel();
@@ -337,7 +372,7 @@ function setupEvents() {
 		game.gotoNextLevel(true);
 	});
 
-	if (mode != 'VR') {
+	if (mode !== 'VR') {
 		$(document).on('mousemove',  onDocumentMouseMove);
 		$(document).on('mousedown',  onDocumentMouseDown);
 		$(document).on('mouseup',    onDocumentMouseUp);
@@ -355,7 +390,7 @@ function onWindowResize(event) {
 	camera.updateProjectionMatrix();
 
 	//composer.reset();
-	if (mode != 'VR')
+	if (mode !== 'VR')
 		setupPostprocessing();
 }
 
@@ -394,46 +429,17 @@ function onDocumentMouseUp(event) {
 	onMouseDownPosition.y = event.clientY - onMouseDownPosition.y;
 }
 
-Number.prototype.clamp = function(min, max) {
-  return Math.min(Math.max(this, min), max);
-};
-
 function onDocumentMouseWheel(event) {
 	var MAX_ZOOM = 8000, MIN_ZOOM = 1000;
 
 	radious -= event.wheelDeltaY;
 
-	radious = radious.clamp(MIN_ZOOM, MAX_ZOOM);
-
+	radious = Math.min(Math.max(radious, MIN_ZOOM), MAX_ZOOM);
 
 	setCameraPosition();
 	camera.updateMatrix();
 
 	render();
-}
-
-function inputHandler() {
-
-	var pPos = game.player;
-
-	if (keyboard.pressed('left') || keyboard.pressed('a')) {
-		pPos.move(Grid.DIRS.LEFT);
-	} else if (keyboard.pressed('down') || keyboard.pressed('s')) {
-		pPos.move(Grid.DIRS.DOWN);
-	} else if (keyboard.pressed('right') || keyboard.pressed('d')) {
-		pPos.move(Grid.DIRS.RIGHT);
-	} else if (keyboard.pressed('up') || keyboard.pressed('w')) {
-		pPos.move(Grid.DIRS.UP);
-	}
-
-	if (keyboard.pressed('r'))
-		game.resetLevel();
-
-	if (keyboard.pressed('z'))
-		vrEffect && vrControls._vrInput.zeroSensor();
-
-	if (keyboard.pressed('d'))
-		config.debug = !config.debug;
 }
 
 });

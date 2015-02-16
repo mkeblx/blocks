@@ -19,6 +19,7 @@ module.exports = function(grunt) {
 					'js/libs/jquery.min.js',
 					'js/libs/lodash.min.js',
 					'js/libs/tween.min.js',
+					'js/libs/keymaster.js',
 					'js/libs/three.min.js',
 					'js/libs/VREffect.js',
 					'js/libs/VRControls.js',
@@ -29,11 +30,10 @@ module.exports = function(grunt) {
 					'js/libs/postprocessing/RenderPass.js',
 					'js/libs/postprocessing/MaskPass.js',
 					'js/libs/postprocessing/ShaderPass.js',
-					'js/libs/input.keyboard.js',
 					'js/libs/Stats.js',
 					'js/libs/Detector.js',
 					'js/libs/dat.gui.min.js'],
-				dest: 'js/libs/libs.js'
+				dest: 'js/dist/libs.js'
 			}
 		},
 		uglify: {
@@ -45,7 +45,7 @@ module.exports = function(grunt) {
 				}
 			},
 			build: {
-				src: 'js/libs/libs.js',
+				src: 'js/dist/libs.js',
 				dest: 'js/dist/libs.min.js'
 			}
 		},
