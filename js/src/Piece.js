@@ -102,7 +102,7 @@ var Piece = Class.extend({
 		var d = -(game.level.grid.rows-1)*gridSize / 2;
 
 		var container = new THREE.Object3D();
-		container.position.x = d + this.pt.x*gridSize;		
+		container.position.x = d + this.pt.x*gridSize;
 		container.position.z = d + this.pt.y*gridSize;
 
 		p.position.y = -5000;
@@ -113,7 +113,7 @@ var Piece = Class.extend({
 		container.add(p);
 		this.el = p;
 		this.c = container;
-		scene.add(container);
+		window.scene.add(container);
 
 		this.slide(n, false);
 	},
@@ -136,7 +136,7 @@ var Piece = Class.extend({
 	},
 
 	remove: function() {
-		scene.remove(this.c);
+		window.scene.remove(this.c);
 	},
 
 	toString: function(){

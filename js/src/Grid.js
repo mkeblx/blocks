@@ -72,7 +72,7 @@ var Grid = Class.extend({
 
 	//return bool if empty in direction, by length
 	emptyFrom: function(point, direction, len)
-	{	
+	{
 		var pt = point.copy();
 
 		for (var i = 0; i < len; i++) {
@@ -96,12 +96,12 @@ var Grid = Class.extend({
 
 			pt.add(direction);
 		}
-		return true;	
+		return true;
 	},
 
 	//look through grid and find empty point
 	getEmptyPt: function()
-	{	
+	{
 		do {
 			var x = Math.floor(Math.random()*this.cols);
 			var y = Math.floor(Math.random()*this.rows);
@@ -157,7 +157,7 @@ var Grid = Class.extend({
 
 		var line = new THREE.Line(geometry, material);
 		line.type = THREE.LinePieces;
-		scene.add(line);
+		window.scene.add(line);
 		this.el = line;
 
 		this.drawPieces();
@@ -173,7 +173,7 @@ var Grid = Class.extend({
 	},
 
 	remove: function() {
-		scene.remove(this.el);
+		window.scene.remove(this.el);
 		this.pcContainer = null;
 
 		for (var p = 0; p < this.pieces.length; p++) {

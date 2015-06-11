@@ -157,7 +157,7 @@ var Game = Class.extend({
 		floor.position.y = -4;
 		floor.receiveShadow = true;
 
-		scene.add(floor);
+		window.scene.add(floor);
 	}
 
 });

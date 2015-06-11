@@ -5,8 +5,6 @@ if (!Detector.webgl) {
 	return;
 }
 
-window.Class = require('Class');
-
 var Game = require('Game');
 var Grid = require('Grid');
 //var KEYS = require('Keys');
@@ -34,7 +32,8 @@ var camera, renderer, composer;
 var vrEffect;
 var vrControls;
 
-window.scene;
+var scene = new THREE.Scene();
+window.scene = scene;
 
 var topCamera;
 
@@ -75,12 +74,11 @@ function init() {
 		window.innerWidth / 4,		// Right
 		window.innerHeight / 4,		// Top
 		window.innerHeight / -4,	// Bottom
-		-5000,            			// Near 
+		-5000,            			// Near
 		10000 );           			// Far -- enough to see the skybox
 	topCamera.up = new THREE.Vector3(0,0,-1);
 	topCamera.lookAt( new THREE.Vector3(0,-1,0) );
 
-	scene = new THREE.Scene();
 	scene.add(topCamera);
 
 	setupLights();
@@ -183,7 +181,7 @@ function setupRendering() {
 	renderer.setClearColor(BG_COLOR, 0);
 	//renderer.setClearColor( 0x000000, 0 );
 
-	renderer.setSize(window.innerWidth, window.innerHeight);	
+	renderer.setSize(window.innerWidth, window.innerHeight);
 
 	container.appendChild(renderer.domElement);
 
@@ -295,7 +293,7 @@ function startGame() {
 		})
 		.onComplete(function(){
 			game.startLevel(0);
-			setupEvents();		
+			setupEvents();
 		})
 		.delay(600);
 
@@ -304,7 +302,7 @@ function startGame() {
 
 function setCameraPosition() {
 	var a = Math.deg2rad_h;
-	
+
 	if (mode == 'VR') {
 		camera.position.set(0,700,700);
 	} else {
@@ -417,7 +415,7 @@ function onDocumentMouseMove(event) {
 
 		setCameraPosition();
 		camera.updateMatrix();
-	}	
+	}
 }
 
 function onDocumentMouseUp(event) {

@@ -2,15 +2,16 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<title>blocks</title>
+	<title>blocks</title>
 <meta name="viewport" content="width=device-width, user-scalable=0">
 <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700">
 <link rel="stylesheet" href="css/style.css" />
 <script src="js/dist/libs.min.js"></script>
+<script src="js/Class.js"></script>
 <script>
-var require = {urlArgs: "bust="+(new Date()).getTime()};
+var require = {urlArgs: 'bust='+(new Date()).getTime()};
 </script>
-<script data-main="js/main" src="js/require.js"></script>
+<script data-main="js/src/main" src="js/require.js"></script>
 </head>
 <body>
 	<div id="dat-gui-container"></div>
@@ -31,7 +32,7 @@ var require = {urlArgs: "bust="+(new Date()).getTime()};
 	<div class="btn hide" id="random-level">random</div>
 	<div class="btn" id="next-level">next level</div>
 
-	
+
 	<div id="lvl">
 		<h2 id="timer">0:00</h2>
 		<h2 id="level">level 0</h2>

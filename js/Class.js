@@ -1,8 +1,9 @@
-define(function(){
+// global; TODO: remove, use ES6 class via babel
+(function(){
 
 var initializing = false, fnTest = /xyz/.test(function(){xyz;}) ? /\b_super\b/ : /.*/;
 
-this.Class = function(){};
+window.Class = function(){};
 
 Class.extend = function(prop) {
   var _super = this.prototype;
@@ -13,7 +14,7 @@ Class.extend = function(prop) {
 
   for (var name in prop) {
 
-   prototype[name] = typeof prop[name] == "function" && 
+   prototype[name] = typeof prop[name] == "function" &&
      typeof _super[name] == "function" && fnTest.test(prop[name]) ?
      (function(name, fn){
        return function() {
@@ -21,9 +22,9 @@ Class.extend = function(prop) {
 
          this._super = _super[name];
 
-         var ret = fn.apply(this, arguments);        
+         var ret = fn.apply(this, arguments);
          this._super = tmp;
-         
+
          return ret;
        };
      })(name, prop[name]) :
@@ -42,8 +43,6 @@ Class.extend = function(prop) {
   Class.extend = arguments.callee;
 
   return Class;
-};
+}
 
-return Class;
-
-});
+})();

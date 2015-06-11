@@ -1,5 +1,7 @@
 module.exports = function(grunt) {
 
+	require('load-grunt-tasks')(grunt);
+
 	grunt.initConfig({
 		pkg: grunt.file.readJSON('package.json'),
 
@@ -7,6 +9,20 @@ module.exports = function(grunt) {
 			lib: 'js/libs/'
 		},
 
+		babel: {
+			options: {
+				sourceMap: false
+			},
+			dist: {
+				files: [{
+					expand: true,
+					cwd: 'js/src',
+					src: ['*.js'],
+					dest: 'js/comp',
+					ext: '.js'
+				}]
+			}
+		},
 		concat: {
 			options: {
 				nonull: true,
@@ -52,7 +68,7 @@ module.exports = function(grunt) {
 		requirejs: {
 			compile: {
 				options: {
-					baseUrl: 'js',
+					baseUrl: 'js/comp',
 					name: 'main',
 					out: 'js/dist/main.js'
 				}
@@ -88,9 +104,8 @@ module.exports = function(grunt) {
 		}
 	});
 
-	require('matchdep').filterDev('grunt-*').forEach(grunt.loadNpmTasks);
-
 	grunt.registerTask('default', ['concat','uglify','compass:dist']);
-	grunt.registerTask('compile' , ['requirejs']);
+	grunt.registerTask('dev', ['babel:dist']);
+	grunt.registerTask('dist' , ['requirejs']);
 
 };

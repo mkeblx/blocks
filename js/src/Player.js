@@ -16,7 +16,7 @@ var Player = Class.extend({
 
 		if (first)
 			this.draw();
-		
+
 		this.update();
 
 		if (!first)
@@ -59,7 +59,7 @@ var Player = Class.extend({
 					return false;
 				}
 				//TODO: do all the knocking down, and etc here
-	
+
 			} else if (currState === 'PIECE_DOWN') {
 				return false;
 			}
@@ -141,7 +141,7 @@ var Player = Class.extend({
 		mesh.castShadow = true;
 
 
-		scene.add(mesh);
+		window.scene.add(mesh);
 
 		this.el = mesh;
 	},
