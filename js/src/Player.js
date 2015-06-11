@@ -1,6 +1,5 @@
-define(function(require){
 
-var GPoint = require('GPoint');
+import GPoint from 'GPoint';
 
 class Player {
 
@@ -168,6 +167,4 @@ class Player {
 
 };
 
-return Player;
-
-});
+export default Player;

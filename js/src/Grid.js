@@ -1,6 +1,5 @@
-define(function(require){
 
-var GPoint = require('GPoint');
+import GPoint from 'GPoint';
 
 class Grid {
 
@@ -201,6 +200,4 @@ Grid.DIRS = {
 	'RIGHT': 	new GPoint(1,0),
 	'DOWN': 	new GPoint(0,1)};
 
-return Grid;
-
-});
+export default Grid;

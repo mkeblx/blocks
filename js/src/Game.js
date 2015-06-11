@@ -1,8 +1,7 @@
-define(function(require){
 
-var Player = require('Player'),
-    Level = require('Level'),
-    LevelGenerator = require('LevelGenerator');
+import Player from 'Player';
+import Level from 'Level';
+import LevelGenerator from 'LevelGenerator';
 
 class Game {
 
@@ -151,6 +150,4 @@ class Game {
 
 };
 
-return Game;
-
-});
+export default Game;

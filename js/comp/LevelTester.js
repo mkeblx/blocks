@@ -1,14 +1,17 @@
-'use strict';
+define(['exports', 'module', 'GPoint', 'Level', 'Grid'], function (exports, module, _GPoint, _Level, _Grid) {
+	'use strict';
 
-var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
+	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
 
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
-define(function (require) {
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
 
-	var GPoint = require('GPoint'),
-	    Level = require('Level'),
-	    Grid = require('Grid');
+	var _GPoint2 = _interopRequireDefault(_GPoint);
+
+	var _Level2 = _interopRequireDefault(_Level);
+
+	var _Grid2 = _interopRequireDefault(_Grid);
 
 	//Functions for testing if levels are: valid, solvable, equivalent, and determining complexity
 
@@ -145,5 +148,5 @@ define(function (require) {
 
 	;
 
-	return LevelTester;
+	module.exports = LevelTester;
 });

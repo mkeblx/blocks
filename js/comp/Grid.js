@@ -1,12 +1,13 @@
-'use strict';
+define(['exports', 'module', 'GPoint'], function (exports, module, _GPoint) {
+	'use strict';
 
-var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
+	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
 
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
-define(function (require) {
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
 
-	var GPoint = require('GPoint');
+	var _GPoint2 = _interopRequireDefault(_GPoint);
 
 	var Grid = (function () {
 		function Grid(rows, cols) {
@@ -20,10 +21,10 @@ define(function (require) {
 			this.matrix = []; //rows=>cols
 
 			this.DIRS = {
-				'LEFT': new GPoint(-1, 0),
-				'UP': new GPoint(0, -1),
-				'RIGHT': new GPoint(1, 0),
-				'DOWN': new GPoint(0, 1) };
+				'LEFT': new _GPoint2['default'](-1, 0),
+				'UP': new _GPoint2['default'](0, -1),
+				'RIGHT': new _GPoint2['default'](1, 0),
+				'DOWN': new _GPoint2['default'](0, 1) };
 
 			//0 set where numeric codes have meaning
 			for (var i = 0; i < cols * rows; i++) {
@@ -224,10 +225,10 @@ define(function (require) {
 	;
 
 	Grid.DIRS = {
-		'LEFT': new GPoint(-1, 0),
-		'UP': new GPoint(0, -1),
-		'RIGHT': new GPoint(1, 0),
-		'DOWN': new GPoint(0, 1) };
+		'LEFT': new _GPoint2['default'](-1, 0),
+		'UP': new _GPoint2['default'](0, -1),
+		'RIGHT': new _GPoint2['default'](1, 0),
+		'DOWN': new _GPoint2['default'](0, 1) };
 
-	return Grid;
+	module.exports = Grid;
 });

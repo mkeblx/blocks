@@ -1,15 +1,13 @@
-'use strict';
+define(['exports', 'Game', 'Grid'], function (exports, _Game, _Grid) {
+	'use strict';
 
-define(function (require) {
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
-	if (!Detector.webgl) {
-		alert('I\'m sorry, you\'re browser doesn\'t support WebGL.');
-		return;
-	}
+	var _Game2 = _interopRequireDefault(_Game);
 
-	var Game = require('Game');
-	var Grid = require('Grid');
-	//var KEYS = require('Keys');
+	var _Grid2 = _interopRequireDefault(_Grid);
+
+	//import KEYS from 'Keys';
 
 	window.config = {
 		debug: 0,
@@ -130,7 +128,7 @@ define(function (require) {
 
 		animate();
 
-		window.game = new Game();
+		window.game = new _Game2['default']();
 
 		$(window).on('resize', _.throttle(onWindowResize, 1000 / 10));
 	}
@@ -333,16 +331,16 @@ define(function (require) {
   });
   	*/
 		key('left, a', function () {
-			pPos.move(Grid.DIRS.LEFT);
+			pPos.move(_Grid2['default'].DIRS.LEFT);
 		});
 		key('down, s', function () {
-			pPos.move(Grid.DIRS.DOWN);
+			pPos.move(_Grid2['default'].DIRS.DOWN);
 		});
 		key('right, d', function () {
-			pPos.move(Grid.DIRS.RIGHT);
+			pPos.move(_Grid2['default'].DIRS.RIGHT);
 		});
 		key('up, w', function () {
-			pPos.move(Grid.DIRS.UP);
+			pPos.move(_Grid2['default'].DIRS.UP);
 		});
 
 		$('#restart-level').on('click', function () {

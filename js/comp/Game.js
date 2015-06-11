@@ -1,14 +1,17 @@
-'use strict';
+define(['exports', 'module', 'Player', 'Level', 'LevelGenerator'], function (exports, module, _Player, _Level, _LevelGenerator) {
+	'use strict';
 
-var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
+	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
 
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
-define(function (require) {
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
 
-	var Player = require('Player'),
-	    Level = require('Level'),
-	    LevelGenerator = require('LevelGenerator');
+	var _Player2 = _interopRequireDefault(_Player);
+
+	var _Level2 = _interopRequireDefault(_Level);
+
+	var _LevelGenerator2 = _interopRequireDefault(_LevelGenerator);
 
 	var Game = (function () {
 		function Game(settings) {
@@ -32,10 +35,10 @@ define(function (require) {
 			value: function setup() {
 				//load levels
 				for (var i = 0; i < this.numLevels; i++) {
-					this.levels.push(new Level(window.levelData.levels[i]));
+					this.levels.push(new _Level2['default'](window.levelData.levels[i]));
 				}
 
-				this.player = new Player('Moi');
+				this.player = new _Player2['default']('Moi');
 
 				this.time = 0;
 				this.timer = null;
@@ -70,8 +73,8 @@ define(function (require) {
 
 			//go to a new random level
 			value: function randomLevel(size) {
-				var lvlStr = LevelGenerator.generate(size);
-				var lvl = new Level({ grid: [size, size], name: 'random', pieces: lvlStr });
+				var lvlStr = _LevelGenerator2['default'].generate(size);
+				var lvl = new _Level2['default']({ grid: [size, size], name: 'random', pieces: lvlStr });
 
 				this.level.remove();
 
@@ -172,5 +175,5 @@ define(function (require) {
 
 	;
 
-	return Game;
+	module.exports = Game;
 });

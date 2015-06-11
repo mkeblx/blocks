@@ -1,8 +1,7 @@
-define(function(require){
 
-var Grid = require('Grid'),
-    Piece = require('Piece'),
-    GPoint = require('GPoint');
+import Grid from 'Grid';
+import Piece from 'Piece';
+import GPoint from 'GPoint';
 
 class Level {
 
@@ -82,6 +81,4 @@ class Level {
 
 };
 
-return Level;
-
-});
+export default Level;

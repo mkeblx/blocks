@@ -1,6 +1,5 @@
-define(function(require){
 
-var GPoint = require('GPoint');
+import GPoint from 'GPoint';
 
 //TODO: need a way of generating the levels in a non-random way
 //enumeration through all the possible combinations
@@ -94,6 +93,4 @@ class LevelGenerator {
 
 };
 
-return LevelGenerator;
-
-});
+export default LevelGenerator;

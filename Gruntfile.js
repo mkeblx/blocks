@@ -11,7 +11,8 @@ module.exports = function(grunt) {
 
 		babel: {
 			options: {
-				sourceMap: false
+				sourceMap: false,
+				modules: 'amd'
 			},
 			dist: {
 				files: [{
@@ -105,7 +106,7 @@ module.exports = function(grunt) {
 	});
 
 	grunt.registerTask('default', ['concat','uglify','compass:dist']);
-	grunt.registerTask('dev', ['babel:dist']);
+	grunt.registerTask('dev', ['babel']);
 	grunt.registerTask('dist' , ['requirejs']);
 
 };

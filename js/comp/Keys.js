@@ -1,6 +1,5 @@
-"use strict";
-
-define(function (require) {
+define(["exports", "module"], function (exports, module) {
+	"use strict";
 
 	var KEYS = {
 		TAB: 9,
@@ -75,5 +74,5 @@ define(function (require) {
 		MINUS: 189
 	};
 
-	return KEYS;
+	module.exports = KEYS;
 });

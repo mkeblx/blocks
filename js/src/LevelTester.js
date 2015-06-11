@@ -1,8 +1,7 @@
-define(function(require){
 
-var GPoint = require('GPoint'),
-    Level = require('Level'),
-    Grid = require('Grid');
+import GPoint from 'GPoint';
+import Level from 'Level';
+import Grid from 'Grid';
 
 //Functions for testing if levels are: valid, solvable, equivalent, and determining complexity
 class LevelTester {
@@ -126,6 +125,4 @@ class LevelTester {
 
 };
 
-return LevelTester;
-
-});
+export default LevelTester;

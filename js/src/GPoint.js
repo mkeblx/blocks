@@ -1,4 +1,3 @@
-define(function(){
 
 class GPoint {
 
@@ -57,6 +56,4 @@ class GPoint {
 
 };
 
-return GPoint;
-
-});
+export default GPoint;

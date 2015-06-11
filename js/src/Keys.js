@@ -1,4 +1,3 @@
-define(function(require){
 
 var KEYS = {
 	TAB: 9,
@@ -70,9 +69,7 @@ var KEYS = {
 	z: 122,
 
 	PLUS: 187,
-	MINUS: 189 
+	MINUS: 189
 };
 
-return KEYS;
-
-});
+export default KEYS;

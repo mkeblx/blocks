@@ -1,14 +1,17 @@
-'use strict';
+define(['exports', 'module', 'Grid', 'Piece', 'GPoint'], function (exports, module, _Grid, _Piece, _GPoint) {
+	'use strict';
 
-var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
+	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
 
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
-define(function (require) {
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
 
-	var Grid = require('Grid'),
-	    Piece = require('Piece'),
-	    GPoint = require('GPoint');
+	var _Grid2 = _interopRequireDefault(_Grid);
+
+	var _Piece2 = _interopRequireDefault(_Piece);
+
+	var _GPoint2 = _interopRequireDefault(_GPoint);
 
 	var Level = (function () {
 		function Level(levelData) {
@@ -28,7 +31,7 @@ define(function (require) {
 				var rows = levelData.grid[0];
 				var cols = levelData.grid[1];
 
-				this.grid = new Grid(rows, cols);
+				this.grid = new _Grid2['default'](rows, cols);
 				this.startPoint = null;
 				this.endPoint = null;
 
@@ -47,9 +50,9 @@ define(function (require) {
 					var row = parseInt(coords[0]);
 					var col = parseInt(coords[1]);
 
-					var pt = new GPoint(row, col);
+					var pt = new _GPoint2['default'](row, col);
 					var len = parseInt(parts[1]);
-					var piece = new Piece(len, pt);
+					var piece = new _Piece2['default'](len, pt);
 
 					if (i === 0) {
 						this.startPiece = piece;
@@ -99,5 +102,5 @@ define(function (require) {
 
 	;
 
-	return Level;
+	module.exports = Level;
 });

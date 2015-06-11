@@ -1,13 +1,7 @@
-define(function(require){
 
-if (!Detector.webgl) {
-	alert('I\'m sorry, you\'re browser doesn\'t support WebGL.');
-	return;
-}
-
-var Game = require('Game');
-var Grid = require('Grid');
-//var KEYS = require('Keys');
+import Game from 'Game';
+import Grid from 'Grid';
+//import KEYS from 'Keys';
 
 window.config = {
 	debug: 0,
@@ -439,5 +433,3 @@ function onDocumentMouseWheel(event) {
 
 	render();
 }
-
-});

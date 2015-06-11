@@ -1,4 +1,3 @@
-define(function(){
 
 class Piece {
 
@@ -139,7 +138,7 @@ class Piece {
 		window.scene.remove(this.c);
 	}
 
-	toString(){
+	toString() {
 		return this.pt.toString()+':'+this.len;
 	}
 
@@ -147,6 +146,4 @@ class Piece {
 
 Piece.COLORS = [0xDF1F1F, 0xDFAF1F, 0x80DF1F, 0x1FDF50, 0x1FDFDF, 0x1F4FDF, 0x7F1FDF, 0xDF1FAF, 0xEFEFEF, 0x303030];
 
-return Piece;
-
-});
+export default Piece;
