@@ -1,7 +1,8 @@
 define(function(){
 
-var Piece = Class.extend({
-	init: function(length, pt){
+class Piece {
+
+	constructor(length, pt) {
 		this.len = Math.max(length,1);
 		this.pt = pt;
 		this.isUp = true;
@@ -9,15 +10,14 @@ var Piece = Class.extend({
 
 		this.el = null;
 		this.id = 'pc'+String(this.pt.x)+'_'+String(this.pt.y);
-	},
+	}
 
-	copy: function(){
+	copy() {
 		return new Piece(this.len, this.pt);
-	},
+	}
 
 	//handles checking if can knock down, returns true if knocked down
-	knockDown: function(dir){
-
+	knockDown(dir) {
 
 		var len = this.len;
 
@@ -41,9 +41,9 @@ var Piece = Class.extend({
 		this.update(endPt);
 
 		return true;
-	},
+	}
 
-	update: function(endPt) {
+	update(endPt) {
 		var dir = this.direction, len = this.len;
 		var gridSize = game.gridSize;
 
@@ -80,10 +80,10 @@ var Piece = Class.extend({
 		}
 
 		c.position[axis2] += sign*gridSize/2;
-	},
+	}
 
 	//endPiece?: boolean
-	draw: function(board, endPiece, n){
+	draw(board, endPiece, n){
 		var gridSize = game.gridSize;
 
 		var space = 0.0;
@@ -116,9 +116,9 @@ var Piece = Class.extend({
 		window.scene.add(container);
 
 		this.slide(n, false);
-	},
+	}
 
-	slide: function(n, out) {
+	slide(n, out) {
 		var deltaT = 750;
 
 		var endPos = this.len * game.gridSize/2;
@@ -133,16 +133,17 @@ var Piece = Class.extend({
 			.delay(100*n)
 			.easing(TWEEN.Easing.Cubic.Out)
 			.start();
-	},
+	}
 
-	remove: function() {
+	remove() {
 		window.scene.remove(this.c);
-	},
+	}
 
-	toString: function(){
+	toString(){
 		return this.pt.toString()+':'+this.len;
 	}
-});
+
+};
 
 Piece.COLORS = [0xDF1F1F, 0xDFAF1F, 0x80DF1F, 0x1FDF50, 0x1FDFDF, 0x1F4FDF, 0x7F1FDF, 0xDF1FAF, 0xEFEFEF, 0x303030];
 

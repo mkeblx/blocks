@@ -12,17 +12,18 @@ Very possible based on a few ideas:
 
 
 also, enough calls to generate(SIZE) will generate all levels
-*/ 
+*/
 
-var LevelGenerator = {
-	init: function(){
+class LevelGenerator {
+
+	constructor() {
 		this.levelsGenerated = 0;
-	},
+	}
 
 	//generate a random level string
 	//of form [row,col]:pieceSize+...
 	//@param size size of grid (rows==cols)
-	generate: function(size){
+	generate(size) {
 		if (size < 2) {
 			console.error('level size too small');
 			return false;
@@ -43,11 +44,10 @@ var LevelGenerator = {
 		str = pcs.join('+');
 		this.levelsGenerated++;
 		return str;
-	},
+	}
 
 	// not all, as not enumerating unless testing
-	generateAllLevelsRandomly: function(size)
-	{
+	generateAllLevelsRandomly(size) {
 		var levels = [];
 
 		for (var n = 0; n < 100; n++) { //100 for now
@@ -56,11 +56,10 @@ var LevelGenerator = {
 
 		levels.push(lvl);
 		return levels;
-	},
+	}
 
 	//generate all possible levels for a certain size board
-	generateAllLevels: function(size)
-	{
+	generateAllLevels(size) {
 		var levels = [];
 
 		var lvl = "";
@@ -72,11 +71,11 @@ var LevelGenerator = {
 			//generate all levels with p pieces
 			lvl = "";
 			for (var i = 0; i < p; i++) {
-				
+
 				//iterate through each location
 				for (var r = 0; r < size; r++) {
 					for (var c = 0; c < size; c++) {
-				
+
 						for (var l = 1; l < maxLength; l++) {
 							lvl += "["+r+','+c+"]:"+l;
 						}
@@ -87,9 +86,9 @@ var LevelGenerator = {
 		}
 
 		return levels;
-	},
+	}
 
-	toString: function(){
+	toString() {
 		return "LevelGenerator: " + this.levelsGenerated;
 	}
 

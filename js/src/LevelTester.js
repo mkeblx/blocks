@@ -5,11 +5,11 @@ var GPoint = require('GPoint'),
     Grid = require('Grid');
 
 //Functions for testing if levels are: valid, solvable, equivalent, and determining complexity
-var LevelTester = Class.extend({
-	init: function()
-	{
+class LevelTester {
+
+	constructor() {
 		this.errors = [];
-	},
+	}
 
 	//validate a level given as a string
 	//where valid means pieces fit on board and under maxSize (size of board)
@@ -18,8 +18,7 @@ var LevelTester = Class.extend({
 	no duplicate pieces at same place on grid
 	pieces in order from row first, column second
 	*/
-	validate: function(str, size)
-	{
+	validate(str, size) {
 		var pieces = str.split('+');
 
 		//pc: [r,c]:4
@@ -87,19 +86,17 @@ var LevelTester = Class.extend({
 
 		//all good
 		return true;
-	},
+	}
 
 	//normalize a level string
-	normalize: function(lvlStr)
-	{
+	normalize(lvlStr) {
 		return lvlStr;
-	},
+	}
 
 	//test whether two levels are equivalent
 	//equivalent: same except for rotations, unreachable pieces, reflections
 	//for now => exact same
-	equivalent: function(lvlStr, lvlStr2)
-	{
+	equivalent(lvlStr, lvlStr2) {
 		var eq = false;
 		if (lvlStr === lvlStr2)
 			eq = true;
@@ -107,29 +104,27 @@ var LevelTester = Class.extend({
 		//
 
 		return eq;
-	},
+	}
 
 	//test whether a level is solvable
 	//this is a bigger guy
-	solvable: function(lvlStr)
-	{
+	solvable(lvlStr) {
 		return true;
-	},
+	}
 
 	//generate some kind of determination of the complexity
 	//of a level based on a number of factors: # or moves required, choices have to make, etc
-	complexity: function(lvlStr)
-	{
+	complexity(lvlStr) {
 		return 0.0; //single numeric?
-	},
+	}
 
-	getLastError: function()
-	{
+	getLastError() {
 		if (this.errors.length)
 			return this.errors.pop();
 		return false;
 	}
-});
+
+};
 
 return LevelTester;
 

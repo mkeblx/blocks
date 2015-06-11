@@ -4,10 +4,9 @@ var Player = require('Player'),
     Level = require('Level'),
     LevelGenerator = require('LevelGenerator');
 
-var Game = Class.extend({
+class Game {
 
-	init: function(settings)
-	{
+	constructor(settings) {
 		this.gridSize = 100;
 
 		this.gameCompleted = false;
@@ -19,11 +18,10 @@ var Game = Class.extend({
 		this.numLevels = window.levelData.levels.length;
 
 		this.setup();
-	},
+	}
 
 
-	setup: function()
-	{
+	setup() {
 		//load levels
 		for (var i = 0; i < this.numLevels; i++) {
 			this.levels.push(new Level(window.levelData.levels[i]));
@@ -35,10 +33,9 @@ var Game = Class.extend({
 		this.timer = null;
 
 		this.draw();
-	},
+	}
 
-	startLevel: function(levelNum)
-	{
+	startLevel(levelNum) {
 		this.level = this.levels[levelNum];
 
 		$('#level').html(this.level.name);
@@ -49,21 +46,19 @@ var Game = Class.extend({
 		this.player.setStartPosition(this.level.getStartPt());
 
 		this.startTimer();
-	},
+	}
 
-	resetLevel: function()
-	{
+	resetLevel() {
 		this.player.hide();
 		this.level.remove();
 
 		if (this.currLevel === this.levels.length)
 			this.currLevel--;
 		this.startLevel(this.currLevel);
-	},
+	}
 
 	//go to a new random level
-	randomLevel: function(size)
-	{
+	randomLevel(size) {
 		var lvlStr = LevelGenerator.generate(size);
 		var lvl = new Level({grid: [size, size], name: 'random', pieces: lvlStr});
 
@@ -73,11 +68,10 @@ var Game = Class.extend({
 		lvl.grid.draw();
 		this.player.setStartPosition(lvl.getStartPt());
 		this.level = lvl;
-	},
+	}
 
 	//reset stuff for next level
-	gotoNextLevel: function(inc)
-	{
+	gotoNextLevel(inc) {
 		if (inc)
 			this.currLevel++;
 
@@ -101,11 +95,10 @@ var Game = Class.extend({
 		this.startLevel(this.currLevel);
 
 		return true;
-	},
+	}
 
 	//completed all the levels
-	gameComplete: function()
-	{
+	gameComplete() {
 		this.gameCompleted = true;
 
 		this.player.el.hide = true;
@@ -115,10 +108,9 @@ var Game = Class.extend({
 		$('#menu #instructions').html('<h3>Game Complete!</h3>');
 
 		//alert('You\'ve won! You must pay for more levels');
-	},
+	}
 
-	startTimer: function()
-	{
+	startTimer() {
 		if (this.timer)
 			this.stopTimer();
 
@@ -126,24 +118,21 @@ var Game = Class.extend({
 
 		this.time = 0;
 		this.timer = setInterval(function(){ that.updateTimer(); }, 1000);
-	},
+	}
 
-	stopTimer: function()
-	{
+	stopTimer() {
 		clearInterval(this.timer);
-	},
+	}
 
-	updateTimer: function()
-	{
+	updateTimer() {
 		this.time++;
 
 		var formatTime = Math.round(this.time / 60) + ":" + (this.time % 60 < 10 ? '0' : '') + (this.time % 60);
 
 		$('#timer').html(formatTime);
-	},
+	}
 
-	draw: function()
-	{
+	draw() {
 		var color = BG_COLOR;
 
 		var floorMaterial = new THREE.MeshLambertMaterial({
@@ -160,7 +149,7 @@ var Game = Class.extend({
 		window.scene.add(floor);
 	}
 
-});
+};
 
 return Game;
 

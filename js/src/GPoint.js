@@ -1,36 +1,37 @@
 define(function(){
 
-var GPoint = Class.extend({
-	init: function(x,y){
+class GPoint {
+
+	constructor(x,y) {
 		this.x = x;
 		this.y = y;
-	},
+	}
 
-	copy: function(){
+	copy() {
 		return new GPoint(this.x, this.y);
-	},
+	}
 
-	addX: function(n){
+	addX(n) {
 		this.x += n;
-	},
-	addY: function(n){
+	}
+	addY(n) {
 		this.y += n;
-	},
+	}
 
-	add: function(pt){
+	add(pt) {
 		this.x += pt.x;
 		this.y += pt.y;
 		return this;
-	},
+	}
 
 	//scalar
-	mult: function(s){
+	mult(s) {
 		this.x *= s;
 		this.y *= s;
 		return this;
-	},
+	}
 
-	set: function(pt, y){
+	set(pt, y) {
 		if (this.arguments === 1) {
 			this.x = pt.x;
 			this.y = pt.y;
@@ -39,21 +40,22 @@ var GPoint = Class.extend({
 			this.y = y;
 		}
 		return this;
-	},
+	}
 
 	//compare two pieces for ordering
-	compare: function(b){
+	compare(b) {
 		return 0;
-	},
+	}
 
-	equals: function(pt){
+	equals(pt) {
 		return (this.x === pt.x && this.y === pt.y);
-	},
+	}
 
-	toString: function(){
+	toString() {
 		return '['+this.x+','+this.y+']';
 	}
-});
+
+};
 
 return GPoint;
 

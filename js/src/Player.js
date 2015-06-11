@@ -2,14 +2,14 @@ define(function(require){
 
 var GPoint = require('GPoint');
 
-var Player = Class.extend({
-	init: function(name){
+class Player {
+
+	constructor(name) {
 		this.name = name;
 		this.el = null;
-	},
+	}
 
-	setStartPosition: function(pos)
-	{
+	setStartPosition(pos) {
 		this.pos = new GPoint(pos.x, pos.y);
 
 		var first = !this.el;
@@ -21,11 +21,10 @@ var Player = Class.extend({
 
 		if (!first)
 			this.scale(0.1, 1.0, 400, 300);
-	},
+	}
 
 	//move, if possible
-	move: function(dir)
-	{
+	move(dir) {
 		var newPos = this.pos.copy().add(dir);
 
 		var grid = game.level.grid;
@@ -88,9 +87,9 @@ var Player = Class.extend({
 		}
 
 		return true;
-	},
+	}
 
-	update: function(){
+	update() {
 		var gridSize = game.gridSize;
 
 		var d = (game.level.grid.rows-1)*gridSize / 2;
@@ -125,9 +124,9 @@ var Player = Class.extend({
 			plr.position.set(endX, endZ, endY);
 		}
 
-	},
+	}
 
-	draw: function(redraw){
+	draw(redraw) {
 		var gridSize = game.gridSize;
 
 		var r = gridSize / 4;
@@ -137,20 +136,20 @@ var Player = Class.extend({
 			shading: THREE.SmoothShading,
 			overdraw: true});
 
-		mesh = new THREE.Mesh(geometry, material);
+		var mesh = new THREE.Mesh(geometry, material);
 		mesh.castShadow = true;
 
 
 		window.scene.add(mesh);
 
 		this.el = mesh;
-	},
+	}
 
-	hide: function() {
+	hide() {
 		this.el.scale.set(0);
-	},
+	}
 
-	scale: function(from, to, time, delay) {
+	scale(from, to, time, delay) {
 		var plr = this.el;
 
 		var tween = new TWEEN.Tween({ s: from })
@@ -161,12 +160,13 @@ var Player = Class.extend({
 			.easing(TWEEN.Easing.Back.Out)
 			.delay(delay)
 			.start();
-	},
+	}
 
-	toString: function(){
+	toString() {
 		return this.name + '@' + this.pos;
 	}
-});
+
+};
 
 return Player;
 

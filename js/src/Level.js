@@ -4,14 +4,15 @@ var Grid = require('Grid'),
     Piece = require('Piece'),
     GPoint = require('GPoint');
 
-var Level = Class.extend({
-	init: function(levelData){
+class Level {
+
+	constructor(levelData) {
 		this.levelData = levelData;
 
 		this.setup();
-	},
+	}
 
-	setup: function(){
+	setup() {
 		var levelData = this.levelData;
 		this.name = levelData.name;
 
@@ -52,34 +53,34 @@ var Level = Class.extend({
 
 			this.grid.addPiece(piece);
 		}
-	},
+	}
 
-	getStartPt: function(){
+	getStartPt() {
 		return this.startPoint;
-	},
+	}
 
-	getEndPt: function(){
+	getEndPt() {
 		return this.endPoint;
-	},
+	}
 
 	//list all pieces locations and sizes
-	serialize: function(){
+	serialize() {
 		return "Level: " + this.grid.serialize();
- 
-	},
 
-	slideOut: function(callback) {
-	},
+	}
 
-	remove: function(){
+	slideOut(callback) {
+	}
+
+	remove() {
 		this.grid.remove();
-	},
+	}
 
-	toString: function(){
+	toString() {
 		return 'Level: ' + this.name;
 	}
 
-});
+};
 
 return Level;
 
